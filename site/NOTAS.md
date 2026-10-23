@@ -45,3 +45,11 @@ También puedes abrir `site/index.html` directamente: todos los scripts son clá
 
 ## Pendiente de revisar por el cliente
 - El texto del Marco legal es orientativo: conviene revisarlo con asesoría jurídica antes de enviar el portfolio.
+
+## Paquete de 8 stories para Instagram (`stories-ig/`)
+Fuera de `site/`, así que **no se publica** en Netlify.
+- JPEG 1080 × 1920 en `stories-ig/jpg/es/` y `stories-ig/jpg/en/` (01 bienvenida · 02 qué hacemos · 03 servicios · 04 paquete de stories · 05 merchandising · 06 packs mensuales · 07 cómo trabajamos · 08 ¿hablamos?).
+- Regenerar: `NODE_PATH=$(npm root -g) node stories-ig/render.mjs` (Playwright + Chromium). Textos ES/EN en el objeto `T` de `render.mjs`; estilos en `stories-ig/stories.css` (mismos tokens y fuentes que la web, logo e iconos sacados del sprite de `site/index.html`).
+- Zona segura de IG respetada: ~250 px libres arriba y ~290 px abajo.
+- Decisión: al ser para el perfil de MarkeWeed en Instagram, la llamada a la acción es **"Escríbenos por DM"** en lugar de "contacta con quien te envió el portfolio". Sin precios, sin enlaces, sin datos de contacto.
+- En el merch se dibujan solo camiseta, taza, ticket, tarjeta de socio y pegatina (sin bandejas, grinders ni mecheros) para mantener el lenguaje neutro.
