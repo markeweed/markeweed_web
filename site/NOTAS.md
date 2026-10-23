@@ -42,10 +42,12 @@ Por decisión de MarkeWeed se han **quitado** el formulario de contacto, la pol�
 | Tipografía "bold condensada" | El kit de marca no tiene una condensada y `CLAUDE.md` no permite otras: titulares en **Rubik Mono One** en mayúsculas con tracking negativo. |
 | Contraste del naranja | `#CC5500` con texto blanco da 4,3:1: los botones naranjas usan texto grande y en negrita (≥ 19 px / 700) para cumplir AA. Texto pequeño sobre navy en blanco, `--teal-300` u `--orange-300`. |
 | Portfolio | Antes/después **ilustrados en SVG** con un club ficticio («Tu Club»): perfil, logo, web por invitación y merch. Comparador accesible (control deslizante, teclado). Los "antes" usan a propósito tipografías de sistema (Times, Arial, cursiva) para mostrar un diseño descuidado; es la única excepción a las fuentes de marca. |
+| Merchandising | Sección propia `#merch` (recuperada del portfolio anterior): mesa con 16 piezas para el club ficticio «Club Ejemplo» (bandeja, grinder, mechero, camiseta, taza, llavero, pegatinas, ticket, flyer, cartel, packaging, tarjeta de socio, portada, destacados, post y story). Filtros Físico / Digital / Papelería, color de la colección (navy, teal, naranja, blanco), inclinar con el ratón, arrastrar y visor ampliado (flechas, swipe, Esc). El antes/después de merch sigue en el Portfolio. |
+| Avisos de "ejemplos ilustrativos" | Quitados a petición del cliente (portfolio y mesa de merch). |
 | Léxico | Sin "comercial" en el discurso (solo el término legal "comunicaciones comerciales" y "nombre comercial"), sin "captar socios", "más socios", "llena tu club" ni promesas de visibilidad, alcance o posicionamiento (solo aparecen como "lo que no hacemos"). No se usa "cannábico". |
-| Merch | Solo textil, tazas, bolsas, pegatinas, tarjetas de socio y packaging; sin bandejas, grinders ni mecheros. |
 
 ## Cómo editar
+- **Nueva pieza de la mesa de merch**: copia un `<li class="merch-item" data-cat="fisico|digital|papeleria">` y añade sus claves `merch.<pieza>.name/detail` al objeto `EN`. Las piezas usan las clases `mk-main`, `mk-acc`, `mk-ink`, `mk-soft`, `mk-paper` y `mk-text`; los colores están en `SWATCHES` del script.
 - **Textos ES**: en el HTML (cada texto lleva `data-i18n`, `data-i18n-html` o `data-i18n-attr`).
 - **Textos EN**: objeto `EN` del script, misma clave. Mensajes generados por JS: `ES_JS` y `EN` (`js.*`).
 - **Trabajos reales en el portfolio**: sustituir el SVG de `.ba-before` / `.ba-after` por `<img>` (en `img/`, con `alt`), solo con autorización escrita del cliente, y recortar o desenfocar cualquier producto visible.
