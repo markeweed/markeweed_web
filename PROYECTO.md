@@ -1,6 +1,6 @@
 # MarkeWeed · Portfolio comercial interactivo — Especificación de proyecto
 
-> **Actualización (octubre 2026):** la web se ha rediseñado según un encargo nuevo (estudio de imagen y branding: 5 servicios, proceso, antes/después, compromiso legal, FAQ, contacto con formulario y páginas legales, todo en un único `site/index.html`). Ese encargo **sustituye** a las secciones 0, 4, 5 y 6 de este documento (packs, stories, configurador, modal sin datos). Siguen vigentes las reglas de marca de `CLAUDE.md`. Decisiones y diferencias en `site/NOTAS.md`.
+> **Actualización (octubre 2026):** la web se ha rediseñado según un encargo nuevo (estudio de imagen y branding: 5 servicios, proceso, antes/después, compromiso legal, FAQ, contacto por Instagram, todo en un único `site/index.html`). Ese encargo **sustituye** a las secciones 0, 4, 5 y 6 de este documento (packs, stories, configurador, modal sin datos). Siguen vigentes las reglas de marca de `CLAUDE.md`. Decisiones y diferencias en `site/NOTAS.md`.
 
 > **Instrucción para Claude (ejecución futura):** lee este documento entero y construye TODO lo descrito en la carpeta `site/`. No hagas preguntas salvo bloqueo real; las decisiones ya están cerradas en la sección 1. Si algo no está especificado, elige lo más sensato, respeta las "Reglas de oro" (sección 2) y anótalo en `site/NOTAS.md`.
 

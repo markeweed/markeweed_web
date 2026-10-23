@@ -471,50 +471,9 @@ button { cursor: pointer; }
    Contacto
    ========================================================= */
 .contact-grid { display: grid; gap: clamp(28px, 4vw, 48px); }
-@media (min-width: 960px) { .contact-grid { grid-template-columns: 1.4fr 1fr; align-items: start; } }
-.form-card { background: var(--navy-700); border-radius: var(--radius); padding: clamp(22px, 3.6vw, 40px); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--white) 10%, transparent); }
-.form-grid { display: grid; gap: 18px; }
-@media (min-width: 640px) {
-  .form-grid { grid-template-columns: 1fr 1fr; } .field--full { grid-column: 1 / -1; }
-  .form-grid .field:not(.field--full) label { min-height: 2.4em; display: flex; align-items: flex-end; flex-wrap: wrap; gap: 0 6px; }
-}
-.field { display: grid; gap: 8px; }
-.field label, .field .label { font: 600 .75rem/1.2 var(--f-label); text-transform: uppercase; letter-spacing: .1em; }
-.field .opt { font-family: var(--f-detail); text-transform: none; letter-spacing: 0; font-weight: 400; font-size: .8125rem; color: var(--muted); }
-.field input, .field textarea {
-  width: 100%; min-height: 52px; padding: 12px 16px; border-radius: 14px; border: 2px solid transparent;
-  background: var(--white); color: var(--navy); font-family: var(--f-body); font-size: 1rem;
-  transition: border-color .2s, box-shadow .2s;
-}
-.field textarea { min-height: 140px; resize: vertical; line-height: 1.5; }
-.field input:focus-visible, .field textarea:focus-visible { outline: none; border-color: var(--orange); box-shadow: 0 0 0 4px var(--orange-300); }
-.field [aria-invalid="true"] { border-color: var(--orange); box-shadow: 0 0 0 3px var(--orange-300); }
-.error { font-family: var(--f-detail); font-size: .875rem; color: var(--orange-300); min-height: 0; }
-.error:empty { display: none; }
-.checks { display: grid; gap: 14px; margin-top: 6px; }
-.check { display: grid; grid-template-columns: 28px 1fr; gap: 12px; align-items: start; font-size: .9375rem; }
-.check input {
-  -webkit-appearance: none; appearance: none; width: 26px; height: 26px; margin: 0; border-radius: 8px; border: 2px solid var(--white);
-  background: transparent; display: grid; place-items: center; cursor: pointer;
-}
-.check input::after { content: ""; width: 12px; height: 7px; border: solid var(--navy); border-width: 0 0 3px 3px; transform: rotate(-45deg) translate(1px, -1px); opacity: 0; }
-.check input:checked { background: var(--orange-300); border-color: var(--orange-300); }
-.check input:checked::after { opacity: 1; }
-.check input[aria-invalid="true"] { border-color: var(--orange-300); box-shadow: 0 0 0 3px color-mix(in srgb, var(--orange-300) 45%, transparent); }
-.check a { color: var(--white); font-weight: 700; }
-.first-layer { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); font-family: var(--f-detail); font-size: .8125rem; line-height: 1.55; color: var(--muted); }
-.first-layer dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; }
-.first-layer dt { font-weight: 700; color: var(--white); }
-.first-layer a { color: var(--white); }
-.form-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 24px; }
-.form-status { font-family: var(--f-detail); font-size: .9375rem; }
-.hp { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
-.form-success { display: grid; gap: 14px; justify-items: start; text-align: left; }
-.form-success .ok-icon { width: 64px; height: 64px; border-radius: 50%; background: var(--teal); display: grid; place-items: center; }
-.form-success .ok-icon svg { width: 30px; height: 30px; }
-.form-success h3 { font: 400 1.5rem/1.1 var(--f-display); text-transform: uppercase; letter-spacing: -.03em; }
+@media (min-width: 900px) { .contact-grid { grid-template-columns: 1.15fr 1fr; align-items: stretch; } }
 
-.ig-card { position: relative; border-radius: var(--radius); padding: clamp(24px, 3.4vw, 36px); background: var(--paper); color: var(--navy); --focus: var(--navy); --muted: color-mix(in srgb, var(--navy) 80%, var(--paper)); overflow: hidden; isolation: isolate; }
+.ig-card { position: relative; height: 100%; border-radius: var(--radius); padding: clamp(24px, 3.4vw, 36px); background: var(--paper); color: var(--navy); --focus: var(--navy); --muted: color-mix(in srgb, var(--navy) 80%, var(--paper)); overflow: hidden; isolation: isolate; }
 .ig-card::before { content: ""; position: absolute; width: 220px; height: 220px; border-radius: 50%; background: var(--orange-300); right: -90px; bottom: -110px; z-index: -1; opacity: .9; }
 .ig-icon { width: 60px; height: 60px; border-radius: 18px; background: var(--navy); color: var(--white); display: grid; place-items: center; margin-bottom: 18px; }
 .ig-icon svg { width: 30px; height: 30px; }
@@ -524,7 +483,13 @@ button { cursor: pointer; }
 .ig-steps li { display: flex; gap: 10px; align-items: baseline; }
 .ig-steps li::before { counter-increment: ig; content: counter(ig); flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--navy); color: var(--white); font: 700 .6875rem/24px var(--f-label); text-align: center; }
 .copy-status { display: block; margin-top: 10px; font-family: var(--f-detail); font-size: .875rem; min-height: 1.4em; }
-.meet-card { margin-top: 18px; border-radius: var(--radius); padding: 22px 24px; border: 1.5px solid var(--line); display: flex; gap: 16px; align-items: center; }
+.contact-side { display: grid; gap: 18px; align-content: start; }
+.meet-card { border-radius: var(--radius); padding: 22px 24px; border: 1.5px solid var(--line); display: flex; gap: 16px; align-items: center; }
+.brief-card { border-radius: var(--radius); padding: 22px 24px; background: var(--navy-700); }
+.brief-card h3 { font: 600 .75rem/1.2 var(--f-label); text-transform: uppercase; letter-spacing: .12em; margin-bottom: 14px; }
+.brief-card ul { display: grid; gap: 10px; }
+.brief-card li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; color: var(--muted); }
+.brief-card svg { width: 22px; height: 22px; color: var(--teal-300); margin-top: 2px; }
 .meet-card svg { width: 40px; height: 40px; flex: none; color: var(--teal-300); }
 .meet-card p { color: var(--muted); font-size: .9375rem; }
 .meet-card strong { color: var(--white); }
@@ -546,84 +511,9 @@ button { cursor: pointer; }
   font-family: var(--f-detail); font-size: .9375rem; line-height: 1.55;
 }
 .footer-bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px; margin-top: 26px; font-family: var(--f-detail); font-size: .875rem; color: var(--muted); }
-.legal-links { display: flex; flex-wrap: wrap; gap: 6px 4px; }
-.legal-links a, .legal-links button {
-  display: inline-flex; align-items: center; min-height: 44px; padding: 0 10px; border: 0; background: none;
-  color: var(--white); font: 500 .875rem/1 var(--f-detail); text-decoration: underline; text-underline-offset: .25em;
-}
-.legal-links a:hover, .legal-links button:hover { color: var(--orange-300); }
 .footer-meta { display: flex; flex-wrap: wrap; gap: 6px 18px; }
 
-/* =========================================================
-   Banner de cookies y diálogos
-   ========================================================= */
-.cookie-banner {
-  position: fixed; z-index: 150; left: 12px; right: 12px; bottom: 12px; margin-inline: auto; max-width: 880px;
-  background: var(--navy-900); color: var(--white); --focus: var(--orange-300);
-  border-radius: 22px; padding: 20px; box-shadow: 0 24px 60px -20px color-mix(in srgb, var(--black) 70%, transparent), inset 0 0 0 1px color-mix(in srgb, var(--white) 14%, transparent);
-  display: grid; gap: 16px;
-}
-@media (min-width: 760px) { .cookie-banner { grid-template-columns: 1fr auto; align-items: center; padding: 22px 26px; } }
-.cookie-banner p { font-family: var(--f-detail); font-size: .9375rem; line-height: 1.5; }
-.cookie-banner strong { display: block; font: 600 .75rem/1.2 var(--f-label); text-transform: uppercase; letter-spacing: .12em; margin-bottom: 6px; }
-.cookie-banner a { color: var(--white); font-weight: 700; }
-.cookie-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-/* Las tres opciones con el mismo peso visual */
-.btn--choice { --btn-bg: var(--white); --btn-fg: var(--navy); --btn-bd: var(--white); min-height: 48px; padding: 8px 14px; font-size: .75rem; }
-.btn--choice:hover { --btn-bg: var(--paper); --btn-bd: var(--paper); transform: none; }
-
-dialog {
-  padding: 0; border: 0; border-radius: 24px; width: min(100% - 24px, 820px); max-height: min(100% - 24px, 900px);
-  background: var(--paper); color: var(--navy); --focus: var(--navy); --muted: color-mix(in srgb, var(--navy) 80%, var(--paper));
-  box-shadow: 0 40px 80px -30px color-mix(in srgb, var(--black) 70%, transparent);
-  overscroll-behavior: contain;
-}
-dialog::backdrop { background: color-mix(in srgb, var(--navy-900) 78%, transparent); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
-.dialog-head {
-  position: sticky; top: 0; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 16px;
-  padding: 18px clamp(20px, 4vw, 40px); background: var(--navy); color: var(--white); --focus: var(--orange-300);
-}
-.dialog-head h2 { font: 400 clamp(1rem, 3vw, 1.375rem)/1.15 var(--f-display); text-transform: uppercase; letter-spacing: -.03em; }
-.dialog-close {
-  flex: none; width: 46px; height: 46px; border-radius: 50%; border: 1.5px solid color-mix(in srgb, var(--white) 40%, transparent);
-  background: transparent; color: var(--white); display: grid; place-items: center;
-}
-.dialog-close:hover { background: color-mix(in srgb, var(--white) 12%, transparent); }
-.dialog-close svg { width: 20px; height: 20px; }
-.dialog-body { padding: clamp(22px, 4vw, 40px); font-size: 1rem; }
-.dialog-body h3 { font: 800 1.0625rem/1.3 var(--f-body); text-transform: uppercase; letter-spacing: .01em; margin: 28px 0 10px; }
-.dialog-body h3:first-child { margin-top: 0; }
-.dialog-body p, .dialog-body ul { margin-bottom: 12px; }
-.dialog-body ul { list-style: disc; padding-left: 1.3em; }
-.dialog-body li + li { margin-top: 6px; }
-.dialog-body .ph { background: color-mix(in srgb, var(--orange-300) 35%, var(--paper)); padding: 1px 6px; border-radius: 6px; font-family: var(--f-detail); font-weight: 700; }
-.dialog-body .updated { font-family: var(--f-detail); font-size: .875rem; color: var(--muted); margin-top: 24px; }
-.data-table { width: 100%; border-collapse: collapse; font-size: .9375rem; margin: 6px 0 16px; }
-.data-table caption { text-align: left; font-family: var(--f-detail); font-size: .875rem; color: var(--muted); padding-bottom: 8px; }
-.data-table th, .data-table td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid color-mix(in srgb, var(--navy) 16%, transparent); }
-.data-table th { font: 600 .6875rem/1.3 var(--f-label); text-transform: uppercase; letter-spacing: .08em; background: color-mix(in srgb, var(--navy) 6%, transparent); }
-.table-scroll { overflow-x: auto; }
-.data-table code { font-family: var(--f-detail); font-weight: 700; }
-
-.pref-list { display: grid; gap: 12px; margin: 8px 0 22px; }
-.pref { display: grid; grid-template-columns: 1fr auto; gap: 6px 16px; align-items: center; padding: 18px 20px; border-radius: var(--radius-sm); background: var(--white); box-shadow: 0 0 0 1.5px color-mix(in srgb, var(--navy) 10%, transparent); }
-.pref h3 { margin: 0 !important; }
-.pref p { grid-column: 1 / -1; margin: 0 !important; color: var(--muted); font-size: .9375rem; }
-.pref .state { font: 600 .6875rem/1 var(--f-label); text-transform: uppercase; letter-spacing: .08em; padding: 8px 10px; border-radius: 999px; background: var(--paper); }
-.switch { position: relative; display: inline-flex; align-items: center; gap: 10px; font: 600 .6875rem/1 var(--f-label); text-transform: uppercase; letter-spacing: .08em; }
-.switch input { -webkit-appearance: none; appearance: none; width: 52px; height: 30px; border-radius: 999px; background: color-mix(in srgb, var(--navy) 25%, var(--paper)); position: relative; margin: 0; cursor: pointer; transition: background-color .2s; }
-.switch input::after { content: ""; position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: var(--white); transition: transform .2s var(--ease); }
-.switch input:checked { background: var(--teal); }
-.switch input:checked::after { transform: translateX(22px); }
-.switch input:disabled { cursor: not-allowed; opacity: .7; }
-.pref-actions { display: grid; gap: 8px; }
-@media (min-width: 560px) { .pref-actions { grid-template-columns: repeat(3, 1fr); } }
-.pref-actions .btn { --btn-bg: var(--navy); --btn-fg: var(--white); --btn-bd: var(--navy); min-height: 48px; font-size: .75rem; padding: 8px 14px; }
-.pref-actions .btn:hover { --btn-bg: var(--navy-700); --btn-bd: var(--navy-700); transform: none; }
-
-/* Sin JS: los textos legales se muestran como secciones normales */
-.no-js dialog.legal { display: block; position: static; width: auto; max-height: none; margin: 0; border-radius: 0; box-shadow: none; }
-.no-js .dialog-close, .no-js .cookie-banner, .no-js #cookie-settings { display: none; }
+/* Sin JS: el comparador se muestra como dos imágenes */
 .no-js .ba-after { clip-path: none; position: relative; }
 .no-js .ba { aspect-ratio: auto; }
 .no-js .ba-layer { position: relative; }
@@ -1180,89 +1070,38 @@ dialog::backdrop { background: color-mix(in srgb, var(--navy-900) 78%, transpare
       <header class="section-head">
         <p class="eyebrow reveal" data-i18n="contact.eyebrow">Contacto</p>
         <h2 class="display reveal" id="contact-title" data-i18n-html="contact.title">Hablemos<span class="dot">.</span></h2>
-        <p class="lead reveal" data-i18n="contact.lead">Cuéntanos qué necesitas y te proponemos una reunión en tu local, sin compromiso.</p>
+        <p class="lead reveal" data-i18n="contact.lead">Escríbenos por Instagram, cuéntanos qué necesitas y te proponemos una reunión en tu local, sin compromiso.</p>
       </header>
 
       <div class="contact-grid">
-        <div class="form-card reveal">
-          <form id="contact-form" name="contacto" method="POST" action="/?enviado=1" data-netlify="true" netlify-honeypot="bot-field" novalidate>
-            <input type="hidden" name="form-name" value="contacto">
-            <input type="hidden" name="idioma" value="es">
-            <p class="hp" aria-hidden="true"><label>No rellenar <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
-            <div class="form-grid">
-              <div class="field">
-                <label for="f-name" data-i18n="form.name">Nombre</label>
-                <input id="f-name" name="nombre" type="text" autocomplete="name" required maxlength="120" aria-describedby="e-name">
-                <p class="error" id="e-name" aria-live="polite"></p>
-              </div>
-              <div class="field">
-                <label for="f-business" data-i18n="form.business">Club, asociación o growshop</label>
-                <input id="f-business" name="negocio" type="text" autocomplete="organization" required maxlength="160" aria-describedby="e-business">
-                <p class="error" id="e-business" aria-live="polite"></p>
-              </div>
-              <div class="field">
-                <label for="f-email" data-i18n="form.email">Email</label>
-                <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" required maxlength="160" aria-describedby="e-email">
-                <p class="error" id="e-email" aria-live="polite"></p>
-              </div>
-              <div class="field">
-                <label for="f-phone"><span data-i18n="form.phone">Teléfono</span> <span class="opt" data-i18n="form.optional">(opcional)</span></label>
-                <input id="f-phone" name="telefono" type="tel" autocomplete="tel" inputmode="tel" maxlength="30" aria-describedby="e-phone">
-                <p class="error" id="e-phone" aria-live="polite"></p>
-              </div>
-              <div class="field field--full">
-                <label for="f-message" data-i18n="form.message">¿Qué necesitas?</label>
-                <textarea id="f-message" name="mensaje" required maxlength="2000" aria-describedby="e-message"></textarea>
-                <p class="error" id="e-message" aria-live="polite"></p>
-              </div>
-            </div>
-            <div class="checks">
-              <div>
-                <label class="check"><input type="checkbox" id="f-privacy" name="acepta_privacidad" value="si" required aria-describedby="e-privacy"><span data-i18n-html="form.privacy">He leído y acepto la <a href="#privacidad">Política de privacidad</a>.</span></label>
-                <p class="error" id="e-privacy" aria-live="polite"></p>
-              </div>
-              <label class="check"><input type="checkbox" id="f-marketing" name="acepta_comunicaciones" value="si"><span data-i18n="form.marketing">Quiero recibir comunicaciones comerciales de MarkeWeed por email (opcional; puedes darte de baja cuando quieras).</span></label>
-            </div>
-            <div class="form-actions">
-              <button class="btn btn--primary" type="submit"><span data-i18n="form.submit">Enviar</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
-              <p class="form-status" id="form-status" role="status"></p>
-            </div>
-            <div class="first-layer">
-              <dl>
-                <dt data-i18n="fl.k1">Responsable</dt><dd>[TITULAR]</dd>
-                <dt data-i18n="fl.k2">Finalidad</dt><dd data-i18n="fl.v2">Responder tu solicitud y enviarte presupuesto; y, si lo marcas, enviarte comunicaciones comerciales.</dd>
-                <dt data-i18n="fl.k3">Legitimación</dt><dd data-i18n="fl.v3">Tu consentimiento.</dd>
-                <dt data-i18n="fl.k4">Destinatarios</dt><dd data-i18n="fl.v4">No cedemos datos a terceros, salvo obligación legal.</dd>
-                <dt data-i18n="fl.k5">Derechos</dt><dd data-i18n-html="fl.v5">Acceso, rectificación, supresión, oposición, limitación y portabilidad. Más información en la <a href="#privacidad">Política de privacidad</a>.</dd>
-              </dl>
-            </div>
-          </form>
-          <div class="form-success" id="form-success" hidden tabindex="-1">
-            <span class="ok-icon" aria-hidden="true"><svg><use href="#i-check"/></svg></span>
-            <h3 data-i18n="form.okTitle">¡Mensaje enviado!</h3>
-            <p data-i18n="form.okText">Gracias. Te responderemos lo antes posible para proponerte una reunión en tu local.</p>
-          </div>
+        <div class="ig-card reveal">
+          <span class="ig-icon" aria-hidden="true"><svg><use href="#i-ig"/></svg></span>
+          <p class="eyebrow" data-i18n="ig.eyebrow">Instagram</p>
+          <p class="ig-handle" lang="und">@markeweed.es</p>
+          <p data-i18n="ig.text">Escríbenos por mensaje directo en Instagram y te respondemos para quedar en tu local.</p>
+          <ol class="ig-steps">
+            <li data-i18n="ig.s1">Abre Instagram y busca @markeweed.es</li>
+            <li data-i18n="ig.s2">Pulsa «Enviar mensaje»</li>
+            <li data-i18n="ig.s3">Cuéntanos el nombre de tu club o growshop</li>
+          </ol>
+          <button class="btn btn--navy" type="button" id="copy-ig" data-copy="@markeweed.es"><span data-i18n="ig.copy">Copiar usuario</span></button>
+          <span class="copy-status" id="copy-status" role="status"></span>
         </div>
 
-        <aside class="reveal" style="--d:.08s" aria-labelledby="ig-title">
-          <div class="ig-card">
-            <span class="ig-icon" aria-hidden="true"><svg><use href="#i-ig"/></svg></span>
-            <p class="eyebrow" id="ig-title" data-i18n="ig.eyebrow">Instagram</p>
-            <p class="ig-handle" lang="und">@markeweed.es</p>
-            <p data-i18n="ig.text">¿Prefieres escribirnos por mensaje directo? Búscanos en Instagram y mándanos un DM.</p>
-            <ol class="ig-steps">
-              <li data-i18n="ig.s1">Abre Instagram y busca @markeweed.es</li>
-              <li data-i18n="ig.s2">Pulsa «Enviar mensaje»</li>
-              <li data-i18n="ig.s3">Cuéntanos el nombre de tu club o growshop</li>
-            </ol>
-            <button class="btn btn--navy" type="button" id="copy-ig" data-copy="@markeweed.es"><span data-i18n="ig.copy">Copiar usuario</span></button>
-            <span class="copy-status" id="copy-status" role="status"></span>
+        <div class="contact-side reveal" style="--d:.08s">
+          <div class="brief-card">
+            <h3 data-i18n="brief.title">Qué contarnos en el mensaje</h3>
+            <ul>
+              <li><svg aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="brief.1">Nombre del club, asociación o growshop</span></li>
+              <li><svg aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="brief.2">Qué te gustaría mejorar: logo, redes, fotos, web o merch</span></li>
+              <li><svg aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="brief.3">Zona de Madrid y cuándo te viene bien que pasemos</span></li>
+            </ul>
           </div>
           <div class="meet-card">
             <svg aria-hidden="true"><use href="#i-store"/></svg>
             <p data-i18n-html="contact.meet"><strong>Vamos a tu local.</strong> La primera reunión es presencial y sin compromiso, en Madrid.</p>
           </div>
-        </aside>
+        </div>
       </div>
     </div>
   </section>
@@ -1279,14 +1118,6 @@ dialog::backdrop { background: color-mix(in srgb, var(--navy-900) 78%, transpare
     </div>
     <p class="scope" data-i18n="footer.scope">MarkeWeed presta servicios de diseño e imagen de marca. No realiza publicidad ni promoción del consumo de sustancias ni de los establecimientos de sus clientes.</p>
     <div class="footer-bottom">
-      <nav aria-label="Información legal" data-i18n-attr="aria-label:a11y.legalNav">
-        <ul class="legal-links">
-          <li><a href="#aviso-legal" data-i18n="footer.notice">Aviso legal</a></li>
-          <li><a href="#privacidad" data-i18n="footer.privacy">Privacidad</a></li>
-          <li><a href="#cookies" data-i18n="footer.cookies">Cookies</a></li>
-          <li><button type="button" data-open-cookie-settings data-i18n="footer.cookieSettings">Configurar cookies</button></li>
-        </ul>
-      </nav>
       <div class="footer-meta">
         <span data-i18n="footer.pro">Servicios para profesionales · +18</span>
         <span>© <span id="year">2026</span> MarkeWeed</span>
@@ -1294,155 +1125,6 @@ dialog::backdrop { background: color-mix(in srgb, var(--navy-900) 78%, transpare
     </div>
   </div>
 </footer>
-
-<!-- ============ Banner de cookies ============ -->
-<section class="cookie-banner" id="cookie-banner" aria-labelledby="cookie-banner-title" hidden>
-  <p><strong id="cookie-banner-title" data-i18n="cookies.bannerTitle">Cookies</strong><span data-i18n-html="cookies.bannerText">Solo usamos almacenamiento técnico, necesario para que la web funcione (recordar tu idioma y esta elección). No usamos cookies analíticas ni publicitarias. Más información en la <a href="#cookies">Política de cookies</a>.</span></p>
-  <div class="cookie-actions">
-    <button class="btn btn--choice" type="button" data-consent="accept" data-i18n="cookies.accept">Aceptar</button>
-    <button class="btn btn--choice" type="button" data-consent="reject" data-i18n="cookies.reject">Rechazar</button>
-    <button class="btn btn--choice" type="button" data-open-cookie-settings data-i18n="cookies.configure">Configurar</button>
-  </div>
-</section>
-
-<dialog id="cookie-settings" aria-labelledby="cs-title">
-  <div class="dialog-head">
-    <h2 id="cs-title" data-i18n="cookies.settingsTitle">Configurar cookies</h2>
-    <button class="dialog-close" type="button" data-close aria-label="Cerrar" data-i18n-attr="aria-label:a11y.close"><svg aria-hidden="true"><use href="#i-close"/></svg></button>
-  </div>
-  <div class="dialog-body">
-    <p data-i18n="cookies.settingsIntro">Elige qué categorías permites. Ahora mismo esta web solo utiliza almacenamiento técnico.</p>
-    <div class="pref-list">
-      <div class="pref">
-        <h3 data-i18n="cookies.catTech">Técnicas (necesarias)</h3>
-        <span class="state" data-i18n="cookies.alwaysOn">Siempre activas</span>
-        <p data-i18n="cookies.catTechText">Guardan tu idioma y tu elección sobre cookies. Sin ellas la web no recordaría tus preferencias.</p>
-      </div>
-      <div class="pref">
-        <h3 data-i18n="cookies.catAnalytics">Analíticas</h3>
-        <label class="switch"><input type="checkbox" id="pref-analytics" disabled><span data-i18n="cookies.notUsed">No se usan</span></label>
-        <p data-i18n="cookies.catAnalyticsText">No medimos visitas ni usamos herramientas de terceros. Si algún día lo hiciéramos, te pediríamos permiso antes de activarlas.</p>
-      </div>
-    </div>
-    <div class="pref-actions">
-      <button class="btn" type="button" data-consent="accept" data-i18n="cookies.acceptAll">Aceptar</button>
-      <button class="btn" type="button" data-consent="reject" data-i18n="cookies.rejectAll">Rechazar</button>
-      <button class="btn" type="button" data-consent="save" data-i18n="cookies.save">Guardar selección</button>
-    </div>
-  </div>
-</dialog>
-
-<!-- ============ Páginas legales ============ -->
-<dialog class="legal" id="aviso-legal" aria-labelledby="al-title">
-  <div class="dialog-head">
-    <h2 id="al-title" data-i18n="footer.notice">Aviso legal</h2>
-    <button class="dialog-close" type="button" data-close aria-label="Cerrar" data-i18n-attr="aria-label:a11y.close"><svg aria-hidden="true"><use href="#i-close"/></svg></button>
-  </div>
-  <div class="dialog-body" data-i18n-html="legalNotice.body">
-    <h3>1. Datos identificativos</h3>
-    <p>En cumplimiento del artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE), se informa de los datos del titular de esta web:</p>
-    <ul>
-      <li><strong>Titular:</strong> <span class="ph">[TITULAR]</span> (nombre comercial: MarkeWeed)</li>
-      <li><strong>NIF:</strong> <span class="ph">[NIF]</span></li>
-      <li><strong>Domicilio:</strong> <span class="ph">[DOMICILIO]</span></li>
-      <li><strong>Email de contacto:</strong> <span class="ph">[EMAIL]</span></li>
-      <li><strong>Datos registrales:</strong> <span class="ph">[DATOS REGISTRALES, si los hay; si no, eliminar esta línea]</span></li>
-    </ul>
-    <h3>2. Objeto</h3>
-    <p>Esta web informa sobre los servicios de diseño e imagen de marca de MarkeWeed, dirigidos a profesionales: asociaciones, clubs y growshops. El acceso implica la aceptación de este aviso legal.</p>
-    <h3>3. Alcance del servicio</h3>
-    <p>MarkeWeed presta servicios de diseño e imagen de marca. No realiza publicidad ni promoción del consumo de sustancias ni de los establecimientos de sus clientes. Cada cliente es responsable de la comunicación que publique.</p>
-    <h3>4. Condiciones de uso</h3>
-    <p>Te comprometes a usar esta web y sus contenidos de forma lícita, de buena fe y sin perjudicar su funcionamiento ni los derechos de terceros. Los datos que envíes a través del formulario deben ser veraces y propios.</p>
-    <h3>5. Propiedad intelectual e industrial</h3>
-    <p>Los textos, diseños, logotipos, ilustraciones y código de esta web pertenecen a MarkeWeed o se usan con licencia. No se permite su reproducción, distribución o transformación sin autorización. Los ejemplos del portfolio usan un club ficticio («Tu Club»). Las tipografías se usan bajo la licencia SIL Open Font License.</p>
-    <h3>6. Responsabilidad</h3>
-    <p>Trabajamos para que la información sea correcta y esté actualizada, pero no garantizamos la ausencia de errores ni la disponibilidad continua de la web. La información sobre el marco legal es orientativa y no constituye asesoramiento jurídico. Esta web no contiene enlaces a sitios de terceros.</p>
-    <h3>7. Legislación aplicable y jurisdicción</h3>
-    <p>Este aviso legal se rige por la legislación española. Para cualquier controversia, las partes se someten a los juzgados y tribunales de Madrid, salvo que la normativa aplicable establezca otro fuero.</p>
-    <p class="updated">Última actualización: octubre de 2026.</p>
-  </div>
-</dialog>
-
-<dialog class="legal" id="privacidad" aria-labelledby="pp-title">
-  <div class="dialog-head">
-    <h2 id="pp-title" data-i18n="legal.privacyTitle">Política de privacidad</h2>
-    <button class="dialog-close" type="button" data-close aria-label="Cerrar" data-i18n-attr="aria-label:a11y.close"><svg aria-hidden="true"><use href="#i-close"/></svg></button>
-  </div>
-  <div class="dialog-body" data-i18n-html="privacy.body">
-    <p>Esta política explica cómo tratamos tus datos personales conforme al Reglamento (UE) 2016/679 (RGPD) y a la Ley Orgánica 3/2018, de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD).</p>
-    <h3>1. Responsable del tratamiento</h3>
-    <ul>
-      <li><strong>Titular:</strong> <span class="ph">[TITULAR]</span> (MarkeWeed)</li>
-      <li><strong>NIF:</strong> <span class="ph">[NIF]</span></li>
-      <li><strong>Domicilio:</strong> <span class="ph">[DOMICILIO]</span></li>
-      <li><strong>Email:</strong> <span class="ph">[EMAIL]</span></li>
-    </ul>
-    <h3>2. Qué datos tratamos</h3>
-    <p>Los que nos facilitas en el formulario de contacto: nombre, nombre del club, asociación o growshop, email, teléfono (opcional) y el contenido de tu mensaje, además de tus elecciones en las casillas de consentimiento. No necesitamos datos especialmente protegidos: por favor, no los incluyas en tu mensaje.</p>
-    <p>Si nos escribes por mensaje directo en Instagram, también tratamos los datos de esa conversación. En ese caso se aplica, además, la política de privacidad de Meta.</p>
-    <h3>3. Finalidad</h3>
-    <ul>
-      <li>Responder a tus solicitudes y enviarte presupuestos.</li>
-      <li>Solo si marcas la casilla correspondiente, enviarte comunicaciones comerciales sobre nuestros servicios por email.</li>
-    </ul>
-    <p>No tomamos decisiones automatizadas ni elaboramos perfiles con tus datos.</p>
-    <h3>4. Base legal</h3>
-    <p>Tu consentimiento (art. 6.1.a RGPD), que nos das al marcar la casilla de aceptación de esta política antes de enviar el formulario. Para las comunicaciones comerciales pedimos un consentimiento separado y opcional (art. 6.1.a RGPD y art. 21 LSSI-CE). Puedes retirar tu consentimiento en cualquier momento, sin que afecte a la licitud del tratamiento anterior.</p>
-    <h3>5. Plazo de conservación</h3>
-    <ul>
-      <li>Solicitudes y presupuestos: el tiempo necesario para atenderlos y, si no llegamos a trabajar juntos, un máximo de 12 meses desde el último contacto.</li>
-      <li>Comunicaciones comerciales: hasta que retires tu consentimiento.</li>
-    </ul>
-    <p>Después, los datos se bloquean durante los plazos legales de prescripción de posibles responsabilidades (art. 32 LOPDGDD) y, pasados estos, se eliminan.</p>
-    <h3>6. Destinatarios</h3>
-    <p>No cedemos tus datos a terceros, salvo obligación legal. Para prestar el servicio contamos con proveedores que actúan como encargados del tratamiento, con contrato y por cuenta nuestra: el proveedor de alojamiento web y formularios (Netlify, Inc.) y nuestro proveedor de correo electrónico. Netlify puede tratar datos en Estados Unidos; esa transferencia está amparada por el Marco de Privacidad de Datos UE-EE. UU. o, en su defecto, por cláusulas contractuales tipo aprobadas por la Comisión Europea.</p>
-    <h3>7. Tus derechos</h3>
-    <p>Puedes ejercer tus derechos de acceso, rectificación, supresión, oposición, limitación del tratamiento y portabilidad, así como retirar tu consentimiento, escribiendo a <span class="ph">[EMAIL]</span> e indicando qué derecho quieres ejercer. Si tenemos dudas razonables sobre tu identidad, podremos pedirte que la acredites. Te responderemos en el plazo de un mes.</p>
-    <h3>8. Reclamación ante la autoridad de control</h3>
-    <p>Si consideras que no hemos tratado tus datos correctamente, puedes presentar una reclamación ante la Agencia Española de Protección de Datos (AEPD), en su sede electrónica (sedeagpd.gob.es) o en C/ Jorge Juan, 6, 28001 Madrid.</p>
-    <h3>9. Menores de edad</h3>
-    <p>Nuestros servicios se dirigen a profesionales mayores de 18 años. No recogemos conscientemente datos de menores.</p>
-    <h3>10. Seguridad</h3>
-    <p>Aplicamos medidas técnicas y organizativas adecuadas para proteger tus datos. La web se sirve mediante conexión cifrada.</p>
-    <h3>11. Cambios en esta política</h3>
-    <p>Podemos actualizar esta política para adaptarla a cambios legales o del servicio. Publicaremos aquí la versión vigente.</p>
-    <p class="updated">Última actualización: octubre de 2026.</p>
-  </div>
-</dialog>
-
-<dialog class="legal" id="cookies" aria-labelledby="ck-title">
-  <div class="dialog-head">
-    <h2 id="ck-title" data-i18n="legal.cookiesTitle">Política de cookies</h2>
-    <button class="dialog-close" type="button" data-close aria-label="Cerrar" data-i18n-attr="aria-label:a11y.close"><svg aria-hidden="true"><use href="#i-close"/></svg></button>
-  </div>
-  <div class="dialog-body">
-    <div data-i18n-html="cookiesPolicy.body">
-      <h3>1. Qué son las cookies</h3>
-      <p>Son pequeños archivos o registros que una web guarda en tu navegador (por ejemplo, mediante cookies o almacenamiento local) para recordar información sobre tu visita.</p>
-      <h3>2. Qué usamos en esta web</h3>
-      <p>Solo almacenamiento técnico propio, necesario para que la web funcione. <strong>No usamos cookies analíticas, publicitarias ni de terceros</strong>, y no se instala nada no esencial antes de tu consentimiento.</p>
-      <div class="table-scroll">
-        <table class="data-table">
-          <caption>Listado de cookies y almacenamiento utilizados</caption>
-          <thead><tr><th scope="col">Nombre</th><th scope="col">Tipo</th><th scope="col">Finalidad</th><th scope="col">Duración</th><th scope="col">Titular</th></tr></thead>
-          <tbody>
-            <tr><td><code>mw-consent</code></td><td>Técnica (almacenamiento local)</td><td>Recordar tu elección sobre cookies</td><td>12 meses</td><td>Propia</td></tr>
-            <tr><td><code>mw-lang</code></td><td>Técnica (almacenamiento local)</td><td>Recordar el idioma que eliges</td><td>Hasta que la borres</td><td>Propia</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <h3>3. Base legal</h3>
-      <p>El almacenamiento técnico está exento de consentimiento según el artículo 22.2 de la LSSI-CE, porque es estrictamente necesario para prestar el servicio que solicitas. Aun así, te informamos y puedes gestionarlo.</p>
-      <h3>4. Cómo gestionarlas</h3>
-      <p>Puedes cambiar tu elección en cualquier momento desde «Configurar cookies», en el pie de la web. También puedes borrar o bloquear el almacenamiento desde la configuración de tu navegador; si lo haces, la web volverá a preguntarte y no recordará tu idioma.</p>
-      <h3>5. Cambios</h3>
-      <p>Si en el futuro incorporamos cookies no esenciales (por ejemplo, analíticas), actualizaremos este listado y te pediremos el consentimiento antes de activarlas.</p>
-      <p class="updated">Última actualización: octubre de 2026.</p>
-    </div>
-    <p><button class="btn btn--navy" type="button" data-open-cookie-settings data-i18n="footer.cookieSettings">Configurar cookies</button></p>
-  </div>
-</dialog>
 
 <script>
 (function () {
@@ -1471,7 +1153,6 @@ dialog::backdrop { background: color-mix(in srgb, var(--navy-900) 78%, transpare
     "a11y.menuOpen": "Open menu",
     "a11y.menuClose": "Close menu",
     "a11y.close": "Close",
-    "a11y.legalNav": "Legal information",
     "nav.services": "Services",
     "nav.process": "Process",
     "nav.portfolio": "Portfolio",
@@ -1629,157 +1310,31 @@ dialog::backdrop { background: color-mix(in srgb, var(--navy-900) 78%, transpare
 
     "contact.eyebrow": "Contact",
     "contact.title": 'Let\'s talk<span class="dot">.</span>',
-    "contact.lead": "Tell us what you need and we'll suggest a meeting at your venue, with no commitment.",
+    "contact.lead": "Message us on Instagram, tell us what you need and we'll suggest a meeting at your venue, with no commitment.",
     "contact.meet": "<strong>We come to your venue.</strong> The first meeting is in person and with no commitment, in Madrid.",
-    "form.name": "Name",
-    "form.business": "Club, association or grow shop",
-    "form.email": "Email",
-    "form.phone": "Phone",
-    "form.optional": "(optional)",
-    "form.message": "What do you need?",
-    "form.privacy": 'I have read and accept the <a href="#privacidad">Privacy policy</a>.',
-    "form.marketing": "I'd like to receive commercial communications from MarkeWeed by email (optional; you can unsubscribe at any time).",
-    "form.submit": "Send",
-    "form.okTitle": "Message sent!",
-    "form.okText": "Thank you. We'll get back to you as soon as possible to arrange a meeting at your venue.",
-    "fl.k1": "Controller",
-    "fl.k2": "Purpose",
-    "fl.v2": "To answer your request and send you a quote; and, if you tick the box, to send you commercial communications.",
-    "fl.k3": "Legal basis",
-    "fl.v3": "Your consent.",
-    "fl.k4": "Recipients",
-    "fl.v4": "We don't share data with third parties, unless legally required.",
-    "fl.k5": "Rights",
-    "fl.v5": 'Access, rectification, erasure, objection, restriction and portability. More information in the <a href="#privacidad">Privacy policy</a>.',
     "ig.eyebrow": "Instagram",
-    "ig.text": "Prefer a direct message? Find us on Instagram and send us a DM.",
+    "ig.text": "Send us a direct message on Instagram and we'll reply to arrange a visit to your venue.",
+    "brief.title": "What to tell us in your message",
+    "brief.1": "Name of your club, association or grow shop",
+    "brief.2": "What you'd like to improve: logo, social, photos, website or merch",
+    "brief.3": "Area of Madrid and when it suits you for us to come by",
     "ig.s1": "Open Instagram and search for @markeweed.es",
     "ig.s2": "Tap «Message»",
     "ig.s3": "Tell us the name of your club or grow shop",
     "ig.copy": "Copy username",
 
     "footer.scope": "MarkeWeed provides design and brand image services. It does not advertise or promote the consumption of substances or its clients' establishments.",
-    "footer.notice": "Legal notice",
-    "footer.privacy": "Privacy",
-    "footer.cookies": "Cookies",
-    "footer.cookieSettings": "Cookie settings",
     "footer.pro": "Services for professionals · 18+",
-    "legal.privacyTitle": "Privacy policy",
-    "legal.cookiesTitle": "Cookie policy",
-
-    "cookies.bannerTitle": "Cookies",
-    "cookies.bannerText": 'We only use technical storage that the website needs to work (remembering your language and this choice). We don\'t use analytics or advertising cookies. More information in the <a href="#cookies">Cookie policy</a>.',
-    "cookies.accept": "Accept",
-    "cookies.reject": "Reject",
-    "cookies.configure": "Settings",
-    "cookies.settingsTitle": "Cookie settings",
-    "cookies.settingsIntro": "Choose which categories you allow. Right now this website only uses technical storage.",
-    "cookies.catTech": "Technical (necessary)",
-    "cookies.alwaysOn": "Always on",
-    "cookies.catTechText": "They store your language and your cookie choice. Without them the website wouldn't remember your preferences.",
-    "cookies.catAnalytics": "Analytics",
-    "cookies.notUsed": "Not used",
-    "cookies.catAnalyticsText": "We don't measure visits or use third-party tools. If we ever did, we would ask for your permission before turning them on.",
-    "cookies.acceptAll": "Accept",
-    "cookies.rejectAll": "Reject",
-    "cookies.save": "Save choice",
-
-    "legalNotice.body":
-      '<h3>1. Identification details</h3>' +
-      '<p>In accordance with article 10 of Spanish Law 34/2002 of 11 July on Information Society Services and Electronic Commerce (LSSI-CE), the details of the owner of this website are as follows:</p>' +
-      '<ul><li><strong>Owner:</strong> <span class="ph">[TITULAR]</span> (trade name: MarkeWeed)</li>' +
-      '<li><strong>Tax ID (NIF):</strong> <span class="ph">[NIF]</span></li>' +
-      '<li><strong>Address:</strong> <span class="ph">[DOMICILIO]</span></li>' +
-      '<li><strong>Contact email:</strong> <span class="ph">[EMAIL]</span></li>' +
-      '<li><strong>Registration details:</strong> <span class="ph">[DATOS REGISTRALES, si los hay; si no, eliminar esta línea]</span></li></ul>' +
-      '<h3>2. Purpose</h3>' +
-      '<p>This website provides information about MarkeWeed\'s design and brand image services, aimed at professionals: associations, clubs and grow shops. Accessing it implies acceptance of this legal notice.</p>' +
-      '<h3>3. Scope of the service</h3>' +
-      '<p>MarkeWeed provides design and brand image services. It does not advertise or promote the consumption of substances or its clients\' establishments. Each client is responsible for the communication it publishes.</p>' +
-      '<h3>4. Terms of use</h3>' +
-      '<p>You agree to use this website and its content lawfully, in good faith and without harming its operation or the rights of third parties. Any data you send through the form must be accurate and your own.</p>' +
-      '<h3>5. Intellectual and industrial property</h3>' +
-      '<p>The texts, designs, logos, illustrations and code on this website belong to MarkeWeed or are used under licence. Reproduction, distribution or transformation without permission is not allowed. The portfolio examples use a fictional club («Tu Club»). The typefaces are used under the SIL Open Font License.</p>' +
-      '<h3>6. Liability</h3>' +
-      '<p>We work to keep the information accurate and up to date, but we do not guarantee that it is error-free or that the website is always available. Information about the legal framework is for guidance only and is not legal advice. This website contains no links to third-party sites.</p>' +
-      '<h3>7. Applicable law and jurisdiction</h3>' +
-      '<p>This legal notice is governed by Spanish law. For any dispute, the parties submit to the courts of Madrid, unless the applicable regulations establish a different jurisdiction.</p>' +
-      '<p class="updated">Last updated: October 2026.</p>',
-
-    "privacy.body":
-      '<p>This policy explains how we process your personal data in accordance with Regulation (EU) 2016/679 (GDPR) and Spanish Organic Law 3/2018 on Personal Data Protection and Guarantee of Digital Rights (LOPDGDD).</p>' +
-      '<h3>1. Data controller</h3>' +
-      '<ul><li><strong>Owner:</strong> <span class="ph">[TITULAR]</span> (MarkeWeed)</li>' +
-      '<li><strong>Tax ID (NIF):</strong> <span class="ph">[NIF]</span></li>' +
-      '<li><strong>Address:</strong> <span class="ph">[DOMICILIO]</span></li>' +
-      '<li><strong>Email:</strong> <span class="ph">[EMAIL]</span></li></ul>' +
-      '<h3>2. What data we process</h3>' +
-      '<p>The data you give us in the contact form: name, name of your club, association or grow shop, email, phone (optional) and the content of your message, plus your choices in the consent boxes. We don\'t need any special category data: please don\'t include it in your message.</p>' +
-      '<p>If you write to us by direct message on Instagram, we also process the data in that conversation. In that case, Meta\'s privacy policy also applies.</p>' +
-      '<h3>3. Purpose</h3>' +
-      '<ul><li>To answer your requests and send you quotes.</li>' +
-      '<li>Only if you tick the corresponding box, to send you commercial communications about our services by email.</li></ul>' +
-      '<p>We do not make automated decisions or build profiles with your data.</p>' +
-      '<h3>4. Legal basis</h3>' +
-      '<p>Your consent (art. 6.1.a GDPR), which you give by ticking the box accepting this policy before sending the form. For commercial communications we ask for separate, optional consent (art. 6.1.a GDPR and art. 21 LSSI-CE). You can withdraw your consent at any time, without affecting the lawfulness of prior processing.</p>' +
-      '<h3>5. Retention period</h3>' +
-      '<ul><li>Requests and quotes: as long as needed to handle them and, if we don\'t end up working together, a maximum of 12 months from the last contact.</li>' +
-      '<li>Commercial communications: until you withdraw your consent.</li></ul>' +
-      '<p>After that, the data is blocked for the legal limitation periods for possible liabilities (art. 32 LOPDGDD) and then deleted.</p>' +
-      '<h3>6. Recipients</h3>' +
-      '<p>We do not share your data with third parties, unless legally required. To provide the service we rely on providers acting as data processors, under contract and on our behalf: the web hosting and forms provider (Netlify, Inc.) and our email provider. Netlify may process data in the United States; that transfer is covered by the EU-US Data Privacy Framework or, failing that, by standard contractual clauses approved by the European Commission.</p>' +
-      '<h3>7. Your rights</h3>' +
-      '<p>You can exercise your rights of access, rectification, erasure, objection, restriction of processing and portability, and withdraw your consent, by writing to <span class="ph">[EMAIL]</span> and stating which right you want to exercise. If we have reasonable doubts about your identity, we may ask you to prove it. We will reply within one month.</p>' +
-      '<h3>8. Complaints to the supervisory authority</h3>' +
-      '<p>If you believe we have not processed your data correctly, you can lodge a complaint with the Spanish Data Protection Agency (AEPD), through its electronic office (sedeagpd.gob.es) or at C/ Jorge Juan, 6, 28001 Madrid.</p>' +
-      '<h3>9. Minors</h3>' +
-      '<p>Our services are aimed at professionals aged 18 or over. We do not knowingly collect data from minors.</p>' +
-      '<h3>10. Security</h3>' +
-      '<p>We apply appropriate technical and organisational measures to protect your data. The website is served over an encrypted connection.</p>' +
-      '<h3>11. Changes to this policy</h3>' +
-      '<p>We may update this policy to reflect legal or service changes. The current version will always be published here.</p>' +
-      '<p class="updated">Last updated: October 2026.</p>',
-
-    "cookiesPolicy.body":
-      '<h3>1. What cookies are</h3>' +
-      '<p>Small files or records that a website stores in your browser (for example, through cookies or local storage) to remember information about your visit.</p>' +
-      '<h3>2. What we use on this website</h3>' +
-      '<p>Only our own technical storage, which the website needs to work. <strong>We don\'t use analytics, advertising or third-party cookies</strong>, and nothing non-essential is set before your consent.</p>' +
-      '<div class="table-scroll"><table class="data-table"><caption>List of cookies and storage used</caption>' +
-      '<thead><tr><th scope="col">Name</th><th scope="col">Type</th><th scope="col">Purpose</th><th scope="col">Duration</th><th scope="col">Owner</th></tr></thead>' +
-      '<tbody><tr><td><code>mw-consent</code></td><td>Technical (local storage)</td><td>Remember your cookie choice</td><td>12 months</td><td>First party</td></tr>' +
-      '<tr><td><code>mw-lang</code></td><td>Technical (local storage)</td><td>Remember the language you choose</td><td>Until you delete it</td><td>First party</td></tr></tbody></table></div>' +
-      '<h3>3. Legal basis</h3>' +
-      '<p>Technical storage is exempt from consent under article 22.2 of the LSSI-CE, because it is strictly necessary to provide the service you request. Even so, we inform you about it and you can manage it.</p>' +
-      '<h3>4. How to manage them</h3>' +
-      '<p>You can change your choice at any time from «Cookie settings» in the footer. You can also delete or block storage in your browser settings; if you do, the website will ask you again and won\'t remember your language.</p>' +
-      '<h3>5. Changes</h3>' +
-      '<p>If we ever add non-essential cookies (for example, analytics), we will update this list and ask for your consent before turning them on.</p>' +
-      '<p class="updated">Last updated: October 2026.</p>',
 
     /* Textos generados por JS */
-    "js.required": "This field is required.",
-    "js.email": "Please enter a valid email.",
-    "js.phone": "Please enter a valid phone number.",
-    "js.privacy": "You need to accept the privacy policy to send the form.",
-    "js.fixErrors": "Please check the highlighted fields.",
-    "js.sending": "Sending…",
     "js.copied": "Copied! Paste it into Instagram's search.",
-    "js.copyFail": "Couldn't copy it. The username is @markeweed.es",
-    "js.saved": "Choice saved."
+    "js.copyFail": "Couldn't copy it. The username is @markeweed.es"
   };
 
   var ES_JS = {
     "a11y.menuClose": "Cerrar menú",
-    "js.required": "Este campo es obligatorio.",
-    "js.email": "Escribe un email válido.",
-    "js.phone": "Escribe un teléfono válido.",
-    "js.privacy": "Necesitas aceptar la política de privacidad para enviar el formulario.",
-    "js.fixErrors": "Revisa los campos marcados.",
-    "js.sending": "Enviando…",
     "js.copied": "¡Copiado! Pégalo en el buscador de Instagram.",
-    "js.copyFail": "No se ha podido copiar. El usuario es @markeweed.es",
-    "js.saved": "Elección guardada."
+    "js.copyFail": "No se ha podido copiar. El usuario es @markeweed.es"
   };
 
   // Diccionario ES a partir del propio HTML
@@ -1810,8 +1365,6 @@ dialog::backdrop { background: color-mix(in srgb, var(--navy-900) 78%, transpare
       });
     });
     doc.querySelectorAll("[data-lang]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-lang") === lang)); });
-    var langField = doc.querySelector('#contact-form input[name="idioma"]');
-    if (langField) langField.value = lang;
     syncMenuLabel();
     if (typeof baUpdaters !== "undefined") baUpdaters.forEach(function (fn) { fn(); });
     if (persist) store.set("mw-lang", lang);
@@ -1900,59 +1453,6 @@ dialog::backdrop { background: color-mix(in srgb, var(--navy-900) 78%, transpare
     update();
   });
 
-  /* =========================================================
-     Formulario de contacto (Netlify Forms, mismo origen)
-     ========================================================= */
-  var form = doc.getElementById("contact-form");
-  var status = doc.getElementById("form-status");
-  var success = doc.getElementById("form-success");
-  var fields = [
-    { el: doc.getElementById("f-name"), err: "e-name", check: function (v) { return v.trim() ? "" : "js.required"; } },
-    { el: doc.getElementById("f-business"), err: "e-business", check: function (v) { return v.trim() ? "" : "js.required"; } },
-    { el: doc.getElementById("f-email"), err: "e-email", check: function (v) {
-        if (!v.trim()) return "js.required";
-        return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) ? "" : "js.email";
-      } },
-    { el: doc.getElementById("f-phone"), err: "e-phone", check: function (v) {
-        return !v.trim() || /^[+()\d\s.-]{6,30}$/.test(v.trim()) ? "" : "js.phone";
-      } },
-    { el: doc.getElementById("f-message"), err: "e-message", check: function (v) { return v.trim() ? "" : "js.required"; } },
-    { el: doc.getElementById("f-privacy"), err: "e-privacy", check: function () { return doc.getElementById("f-privacy").checked ? "" : "js.privacy"; } }
-  ];
-  function validate(f) {
-    var key = f.check(f.el.value);
-    var msg = doc.getElementById(f.err);
-    if (key) { f.el.setAttribute("aria-invalid", "true"); msg.textContent = t(key); }
-    else { f.el.removeAttribute("aria-invalid"); msg.textContent = ""; }
-    return !key;
-  }
-  fields.forEach(function (f) {
-    var ev = f.el.type === "checkbox" ? "change" : "blur";
-    f.el.addEventListener(ev, function () { if (f.el.hasAttribute("aria-invalid") || f.el.value) validate(f); });
-    f.el.addEventListener("input", function () { if (f.el.hasAttribute("aria-invalid")) validate(f); });
-  });
-  form.addEventListener("submit", function (e) {
-    var firstBad = null;
-    fields.forEach(function (f) { if (!validate(f) && !firstBad) firstBad = f.el; });
-    if (firstBad) {
-      e.preventDefault();
-      status.textContent = t("js.fixErrors");
-      firstBad.focus();
-      return;
-    }
-    status.textContent = t("js.sending");
-  });
-  // Netlify redirige a /?enviado=1 tras un envío correcto
-  if (/[?&]enviado=1\b/.test(window.location.search)) {
-    form.hidden = true;
-    success.hidden = false;
-    try { window.history.replaceState(null, "", window.location.pathname + "#contacto"); } catch (e) {}
-    window.requestAnimationFrame(function () {
-      doc.getElementById("contacto").scrollIntoView();
-      success.focus();
-    });
-  }
-
   /* Copiar usuario de Instagram */
   var copyBtn = doc.getElementById("copy-ig");
   var copyStatus = doc.getElementById("copy-status");
@@ -1973,90 +1473,12 @@ dialog::backdrop { background: color-mix(in srgb, var(--navy-900) 78%, transpare
   });
 
   /* =========================================================
-     Diálogos: páginas legales y configuración de cookies
-     ========================================================= */
-  var openers = new WeakMap();
-  function openDialog(dlg, opener) {
-    if (!dlg || dlg.open) return;
-    doc.querySelectorAll("dialog[open]").forEach(function (d) { d.close(); });
-    openers.set(dlg, opener || doc.activeElement);
-    if (typeof dlg.showModal === "function") dlg.showModal(); else dlg.setAttribute("open", "");
-    var body = dlg.querySelector(".dialog-body"); if (body) dlg.scrollTop = 0;
-  }
-  doc.querySelectorAll("dialog").forEach(function (dlg) {
-    dlg.addEventListener("close", function () {
-      if (dlg.classList.contains("legal") && window.location.hash === "#" + dlg.id) {
-        try { window.history.replaceState(null, "", window.location.pathname + window.location.search); } catch (e) {}
-      }
-      var o = openers.get(dlg);
-      if (o && typeof o.focus === "function" && doc.contains(o)) o.focus();
-    });
-    dlg.addEventListener("click", function (e) { if (e.target === dlg) dlg.close(); }); // clic en el fondo
-    dlg.querySelectorAll("[data-close]").forEach(function (b) { b.addEventListener("click", function () { dlg.close(); }); });
-  });
-
-  var legalIds = ["aviso-legal", "privacidad", "cookies"];
-  doc.addEventListener("click", function (e) {
-    var a = e.target.closest('a[href^="#"]');
-    if (!a) return;
-    var id = a.getAttribute("href").slice(1);
-    if (legalIds.indexOf(id) > -1) {
-      e.preventDefault();
-      try { window.history.pushState(null, "", "#" + id); } catch (err) {}
-      openDialog(doc.getElementById(id), a);
-    }
-  });
-  function openFromHash() {
-    var id = window.location.hash.slice(1);
-    if (legalIds.indexOf(id) > -1) openDialog(doc.getElementById(id));
-  }
-  window.addEventListener("hashchange", openFromHash);
-
-  /* =========================================================
-     Consentimiento de cookies
-     Solo hay almacenamiento técnico. Si algún día se añade analítica,
-     cargarla únicamente dentro de applyConsent() cuando analytics === true.
-     ========================================================= */
-  var CONSENT_KEY = "mw-consent";
-  var CONSENT_MAX_AGE = 365 * 24 * 60 * 60 * 1000; // 12 meses
-  var banner = doc.getElementById("cookie-banner");
-  var settings = doc.getElementById("cookie-settings");
-  var analyticsToggle = doc.getElementById("pref-analytics");
-
-  function readConsent() {
-    try {
-      var c = JSON.parse(store.get(CONSENT_KEY));
-      if (c && c.ts && Date.now() - c.ts < CONSENT_MAX_AGE) return c;
-    } catch (e) {}
-    return null;
-  }
-  function applyConsent(c) { analyticsToggle.checked = !!(c && c.analytics); /* Sin scripts no esenciales que cargar */ }
-  function saveConsent(choice) {
-    // No hay cookies no esenciales: "Aceptar" no activa nada; solo se registra la elección.
-    var c = { v: 1, ts: Date.now(), choice: choice, analytics: false };
-    store.set(CONSENT_KEY, JSON.stringify(c));
-    applyConsent(c);
-    banner.hidden = true;
-    if (settings.open) settings.close();
-  }
-  doc.querySelectorAll("[data-consent]").forEach(function (b) {
-    b.addEventListener("click", function () { saveConsent(b.getAttribute("data-consent")); });
-  });
-  doc.querySelectorAll("[data-open-cookie-settings]").forEach(function (b) {
-    b.addEventListener("click", function () { openDialog(settings, b); });
-  });
-
-  /* =========================================================
-     Arranque
+     Arranque (solo se guarda el idioma elegido: almacenamiento técnico)
      ========================================================= */
   var saved = store.get("mw-lang");
   applyLang(saved === "en" ? "en" : "es", false);
-  var consent = readConsent();
-  applyConsent(consent);
-  if (!consent) banner.hidden = false;
   var year = doc.getElementById("year");
   if (year) year.textContent = String(new Date().getFullYear());
-  openFromHash();
 })();
 </script>
 </body>
