@@ -47,9 +47,11 @@ También puedes abrir `site/index.html` directamente: todos los scripts son clá
 - El texto del Marco legal es orientativo: conviene revisarlo con asesoría jurídica antes de enviar el portfolio.
 
 ## Paquete de 8 stories para Instagram (`stories-ig/`)
-Fuera de `site/`, así que **no se publica** en Netlify.
-- JPEG 1080 × 1920 en `stories-ig/jpg/es/` y `stories-ig/jpg/en/` (01 bienvenida · 02 qué hacemos · 03 servicios · 04 paquete de stories · 05 merchandising · 06 packs mensuales · 07 cómo trabajamos · 08 ¿hablamos?).
-- Regenerar: `NODE_PATH=$(npm root -g) node stories-ig/render.mjs` (Playwright + Chromium). Textos ES/EN en el objeto `T` de `render.mjs`; estilos en `stories-ig/stories.css` (mismos tokens y fuentes que la web, logo e iconos sacados del sprite de `site/index.html`).
-- Zona segura de IG respetada: ~250 px libres arriba y ~290 px abajo.
-- Decisión: al ser para el perfil de MarkeWeed en Instagram, la llamada a la acción es **"Escríbenos por DM"** en lugar de "contacta con quien te envió el portfolio". Sin precios, sin enlaces, sin datos de contacto.
-- En el merch se dibujan solo camiseta, taza, ticket, tarjeta de socio y pegatina (sin bandejas, grinders ni mecheros) para mantener el lenguaje neutro.
+Fuera de `site/`, así que **no se publica** en Netlify. Para la cuenta B2B @markeweed.es (dueños de asociaciones, clubs y growshops de Madrid).
+- Guion completo (objetivo, texto, visual e interactivo de cada story): `stories-ig/GUION.md`.
+- JPEG 1080 × 1920 para subir en `stories-ig/jpg/`, con el hueco del sticker libre. La maqueta con los stickers dibujados está en `stories-ig/preview/`.
+- Secuencia: presentación → problema → servicios → cómo trabajamos → cumplimiento → antes/después → web de invitaciones → CTA por DM.
+- Regenerar: `NODE_PATH=$(npm root -g) node stories-ig/render.mjs` (Playwright + Chromium). Textos en `render.mjs` y estilos en `stories-ig/stories.css`.
+- Línea de las stories: no usar "comercial" ni "captar/más socios" ni prometer visibilidad o alcance; solo los servicios de branding, perfiles, foto/vídeo/diseño, web con invitación y merch.
+- Tipografía: el brief pedía una "bold condensada" para los titulares, pero ninguna de las 4 fuentes de marca es condensada, así que se usa Rubik Mono One (regla de no inventar tipografías).
+- **Aviso:** la web (`site/`) todavía usa "gestión comercial" y "más socios", que según esta línea están prohibidos. Conviene revisarla.
