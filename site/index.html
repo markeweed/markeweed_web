@@ -405,12 +405,6 @@ button { cursor: pointer; }
 .case-list li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: start; }
 .case-list svg { width: 22px; height: 22px; color: var(--teal); margin-top: 2px; }
 .case-hint { margin-top: 18px; font-family: var(--f-detail); font-size: .875rem; color: var(--muted); }
-.disclaimer {
-  margin-top: clamp(32px, 5vw, 48px); display: flex; gap: 14px; align-items: flex-start;
-  padding: 18px 20px; border-radius: var(--radius-sm); border: 1.5px dashed color-mix(in srgb, var(--navy) 35%, transparent);
-  font-family: var(--f-detail); font-size: .9375rem; color: var(--muted);
-}
-.disclaimer svg { width: 22px; height: 22px; flex: none; color: var(--orange); margin-top: 2px; }
 .portfolio .orb--orange { width: 150px; height: 150px; right: -70px; top: -40px; opacity: .9; }
 @media (min-width: 900px) { .portfolio .orb--orange { width: 200px; height: 200px; right: -80px; top: 60px; } }
 .portfolio .blob { width: 420px; left: -180px; bottom: -120px; color: var(--teal); opacity: .12; }
@@ -420,6 +414,105 @@ button { cursor: pointer; }
 .mk-body { font-family: var(--f-body); }
 .mk-detail { font-family: var(--f-detail); }
 .mk-bad { font-family: "Times New Roman", Georgia, serif; }
+
+/* =========================================================
+   Merchandising: filtros, color, mesa y visor
+   ========================================================= */
+:root { --m-main: #001F3F; --m-acc: #CC5500; --m-ink: #FFFFFF; --m-soft: #0A3157; --m-paper: #FFFFFF; --m-text: #001F3F; --m-edge: transparent; --m-edge-w: 0; }
+.merch .orb--orange { width: 130px; height: 130px; right: -50px; top: 90px; opacity: .85; }
+.merch-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-bottom: 14px; }
+.filters { display: flex; flex-wrap: wrap; gap: 6px; padding: 4px; border-radius: 999px; background: color-mix(in srgb, var(--white) 6%, transparent); border: 1.5px solid var(--line); }
+.filters button { min-height: 44px; padding: 8px 16px; border: 0; border-radius: 999px; background: transparent; color: var(--white); font: 700 .6875rem/1 var(--f-label); letter-spacing: .08em; text-transform: uppercase; transition: background-color .2s, color .2s; }
+.filters button[aria-pressed="true"] { background: var(--white); color: var(--navy); }
+.filters button:not([aria-pressed="true"]):hover { background: color-mix(in srgb, var(--white) 12%, transparent); }
+.swatches { display: flex; align-items: center; gap: 12px; }
+.swatches-label { display: inline-flex; align-items: center; gap: 8px; font: 600 .6875rem/1 var(--f-label); letter-spacing: .12em; text-transform: uppercase; }
+.swatches-label svg { width: 18px; height: 18px; color: var(--orange-300); }
+.swatches-opts { display: flex; gap: 8px; }
+.swatches-opts button { width: 44px; height: 44px; border: 0; border-radius: 50%; background: var(--sw); box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--white) 35%, transparent); transition: transform .3s var(--ease), box-shadow .2s; }
+.swatches-opts button:hover { transform: scale(1.08); }
+.swatches-opts button[aria-checked="true"] { box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--white) 35%, transparent), 0 0 0 3px var(--navy), 0 0 0 5px var(--orange-300); }
+.btn--sm { min-height: 44px; padding: 6px 18px; font-size: .6875rem; }
+.merch-hint { display: flex; gap: 10px; align-items: center; margin-bottom: 28px; font-family: var(--f-detail); font-size: .9375rem; color: var(--muted); }
+.merch-hint svg { width: 22px; height: 22px; color: var(--orange-300); flex: none; }
+.merch__board {
+  position: relative; display: grid; gap: 14px; grid-template-columns: repeat(2, 1fr);
+  padding: clamp(12px, 2vw, 22px); border-radius: var(--radius);
+  background:
+    linear-gradient(color-mix(in srgb, var(--white) 5%, transparent) 1px, transparent 1px) 0 0 / 28px 28px,
+    linear-gradient(90deg, color-mix(in srgb, var(--white) 5%, transparent) 1px, transparent 1px) 0 0 / 28px 28px,
+    color-mix(in srgb, var(--teal) 30%, var(--navy-900));
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--white) 8%, transparent);
+  perspective: 1000px;
+}
+@media (min-width: 700px) { .merch__board { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 1100px) { .merch__board { grid-template-columns: repeat(4, 1fr); } }
+.merch-item { position: relative; transition: opacity .45s var(--ease), scale .45s var(--ease); }
+.merch-item.is-hiding { opacity: 0; scale: .85; }
+.merch-item.is-showing { animation: pieceIn .55s var(--ease) both; }
+@keyframes pieceIn { from { opacity: 0; scale: .8; } to { opacity: 1; scale: 1; } }
+.merch-item.is-top { z-index: 10; }
+.piece {
+  --tx: 0px; --ty: 0px; --rx: 0deg; --ry: 0deg; --focus: var(--orange-300);
+  position: relative; display: flex; flex-direction: column; width: 100%; padding: 0; border: 0;
+  border-radius: 22px; background: var(--paper); color: var(--navy); text-align: left;
+  box-shadow: 0 2px 0 color-mix(in srgb, var(--black) 8%, transparent), 0 18px 30px -18px color-mix(in srgb, var(--black) 60%, transparent);
+  transform: translate3d(var(--tx), var(--ty), 0) rotateX(var(--rx)) rotateY(var(--ry));
+  transition: transform .5s var(--ease), box-shadow .4s;
+  touch-action: pan-y; cursor: grab; will-change: transform;
+}
+.piece.is-dragging { cursor: grabbing; transition: box-shadow .3s; z-index: 20; box-shadow: 0 40px 60px -20px color-mix(in srgb, var(--black) 70%, transparent); }
+.piece.is-tilting { transition: transform .12s linear, box-shadow .4s; }
+.piece__art { display: block; padding: 6px 6px 0; }
+.piece__art svg { width: 100%; height: auto; pointer-events: none; }
+.piece__name { display: block; padding: 0 16px 16px; font: 700 .6875rem/1.2 var(--f-label); letter-spacing: .08em; text-transform: uppercase; }
+/* Colores de la colección (recolor en vivo) */
+.mk-main { fill: var(--m-main); stroke: var(--m-edge, transparent); stroke-width: var(--m-edge-w, 0); transition: fill .5s ease; }
+.mk-acc { fill: var(--m-acc); transition: fill .5s ease; }
+.mk-ink { fill: var(--m-ink); transition: fill .5s ease; }
+.mk-soft { fill: var(--m-soft); transition: fill .5s ease; }
+.mk-paper { fill: var(--m-paper, #FFFFFF); transition: fill .5s ease; }
+.mk-text { fill: var(--m-text, #001F3F); transition: fill .5s ease; }
+.mk-metal { fill: color-mix(in srgb, var(--navy) 20%, var(--white)); }
+.mk-metal-d { fill: color-mix(in srgb, var(--navy) 45%, var(--white)); }
+.mk-s-metal-d { stroke: color-mix(in srgb, var(--navy) 62%, var(--white)); }
+.mk-shadow { fill: color-mix(in srgb, var(--navy-900) 22%, transparent); }
+.mk-s-ink { stroke: var(--m-ink); transition: stroke .5s ease; }
+.mk-s-acc { stroke: var(--m-acc); transition: stroke .5s ease; }
+.mk-s-main { stroke: var(--m-main); transition: stroke .5s ease; }
+.mk-s-metal { stroke: color-mix(in srgb, var(--navy) 38%, var(--white)); }
+.mk-c-ink { color: var(--m-ink); transition: color .5s ease; }
+.mk-c-text { color: var(--m-text, #001F3F); }
+.mk-c-acc { color: var(--m-acc); transition: color .5s ease; }
+
+.viewer {
+  padding: 0; border: 0; border-radius: var(--radius); width: min(100% - 24px, 1000px); max-height: min(100% - 24px, 900px);
+  background: var(--paper); color: var(--navy); --focus: var(--navy); --muted: color-mix(in srgb, var(--navy) 80%, var(--paper));
+  box-shadow: 0 40px 80px -30px color-mix(in srgb, var(--black) 70%, transparent); overscroll-behavior: contain;
+}
+.viewer::backdrop { background: color-mix(in srgb, var(--navy-900) 80%, transparent); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+.viewer[open] { animation: viewerIn .45s var(--ease) both; }
+@keyframes viewerIn { from { transform: scale(.94); opacity: 0; } to { transform: none; opacity: 1; } }
+.viewer-panel { display: grid; }
+@media (min-width: 820px) { .viewer-panel { grid-template-columns: 1.15fr 1fr; } }
+.viewer-stage { display: grid; place-items: center; padding: 24px; min-height: 300px; background: radial-gradient(circle at 50% 45%, var(--white), var(--paper)); touch-action: pan-y; }
+.viewer-stage svg { width: min(100%, 460px); height: auto; animation: viewerPiece .6s var(--ease) both; }
+@keyframes viewerPiece { from { transform: scale(.85) rotate(-4deg); opacity: 0; } to { transform: none; opacity: 1; } }
+.viewer-info { display: grid; gap: 14px; align-content: center; padding: clamp(22px, 4vw, 40px); }
+.viewer-cat { margin-bottom: 0; }
+.viewer-title { font: 400 clamp(1.5rem, 3.4vw, 2.3rem)/1 var(--f-display); text-transform: uppercase; letter-spacing: -.03em; }
+.viewer-detail { font-family: var(--f-detail); color: var(--muted); }
+.viewer-nav { display: flex; align-items: center; gap: 14px; }
+.viewer-count { min-width: 5ch; text-align: center; font: 700 .75rem/1 var(--f-label); letter-spacing: .08em; }
+.icon-btn { width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--navy); background: transparent; color: var(--navy); display: grid; place-items: center; }
+.icon-btn:hover { background: var(--navy); color: var(--white); }
+.icon-btn svg { width: 22px; height: 22px; }
+.viewer-cta { padding: 14px 16px; border-radius: var(--radius-sm); background: var(--white); font-family: var(--f-detail); font-weight: 600; }
+.viewer-info .btn { justify-self: start; }
+.dialog-close { flex: none; width: 46px; height: 46px; border-radius: 50%; border: 0; display: grid; place-items: center; }
+.dialog-close svg { width: 20px; height: 20px; }
+.viewer-close { position: absolute; top: 14px; right: 14px; z-index: 2; background: var(--navy); color: var(--white); --focus: var(--orange-300); }
+.viewer-close:hover { background: var(--navy-700); }
 
 /* =========================================================
    Compromiso legal
@@ -520,6 +613,8 @@ button { cursor: pointer; }
 .no-js .ba-handle, .no-js .ba-range, .no-js .ba-label { display: none; }
 .no-js .tabs { display: none; }
 .no-js .case-panel[hidden] { display: grid !important; margin-top: 48px; }
+.no-js .merch-toolbar, .no-js .merch-hint { display: none; }
+.no-js .piece { cursor: default; }
 
 /* =========================================================
    Movimiento reducido
@@ -558,6 +653,26 @@ button { cursor: pointer; }
     <symbol id="i-ig" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5.5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.3" cy="6.7" r="1.3" fill="currentColor"/></symbol>
     <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M12 11v6M12 7.2v.1"/></symbol>
     <symbol id="i-store" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M4 10v10h16V10M3 10l2-6h14l2 6zM3 10c0 1.7 1.3 3 3 3s3-1.3 3-3c0 1.7 1.3 3 3 3s3-1.3 3-3c0 1.7 1.3 3 3 3s3-1.3 3-3"/><path fill="none" stroke="currentColor" stroke-width="2" d="M10 20v-5h4v5"/></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.5 10h17M8 3v4M16 3v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24"><path d="M20.5 12a8.5 8.5 0 0 1-12.3 7.6L3.5 21l1.3-4.4A8.5 8.5 0 1 1 20.5 12z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7.8-4.7-7.8-10.3A4.4 4.4 0 0 1 12 7.2a4.4 4.4 0 0 1 7.8 2.5C19.8 15.3 12 20 12 20z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+<symbol id="i-send" viewBox="0 0 24 24"><path d="M20.5 3.5L10 14M20.5 3.5L14 20.5l-4-6.5-6.5-4 17-6.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-users" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.3"/><path d="M3 19.5c0-3.3 2.7-5.6 6-5.6s6 2.3 6 5.6M15.8 4.9a3.2 3.2 0 0 1 0 6.2M17.6 14.2c2 .7 3.4 2.6 3.4 5.3"/></g></symbol>
+<symbol id="i-chev-l" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-chev-r" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18c1.3 0 1.9-.9 1.6-1.9-.4-1.4.5-2.4 1.9-2.4H17a4 4 0 0 0 4-4C21 7.3 17 3 12 3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="7.6" cy="11.6" r="1.4" fill="currentColor"/><circle cx="10.3" cy="7.4" r="1.4" fill="currentColor"/><circle cx="15" cy="7.6" r="1.4" fill="currentColor"/></symbol>
+<symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.4-5.7M20 4.5v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-hand" viewBox="0 0 24 24"><path d="M8.5 12V5.8a1.6 1.6 0 0 1 3.2 0V11m0-6.6a1.6 1.6 0 0 1 3.2 0V11m0-4.6a1.6 1.6 0 0 1 3.2 0V12m0-2.8a1.6 1.6 0 0 1 3.2 0v5c0 4-2.9 6.8-6.8 6.8h-.6c-2 0-3.5-.7-4.8-2.3l-3.4-4.3a1.9 1.9 0 0 1 2.9-2.4l1.9 1.9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="emblem" viewBox="0 0 200 200">
+    <circle cx="100" cy="100" r="95" fill="none" stroke="currentColor" stroke-width="5"/>
+    <circle cx="100" cy="100" r="63" fill="none" stroke="currentColor" stroke-width="2.5"/>
+    <path id="emblem-arc" d="M100 100m-79 0a79 79 0 1 1 158 0a79 79 0 1 1-158 0" fill="none"/>
+    <text fill="currentColor" font-family="Unbounded, sans-serif" font-weight="700" font-size="13.5"><textPath href="#emblem-arc" textLength="488" lengthAdjust="spacing">CLUB EJEMPLO · ASOCIACIÓN · EST. 2026 ·</textPath></text>
+    <path d="M76 141V100a24 24 0 0 1 48 0v41z" fill="currentColor"/>
+    <path d="M100 47l4.2 9.3 9.3 4.2-9.3 4.2-4.2 9.3-4.2-9.3-9.3-4.2 9.3-4.2z" fill="currentColor"/>
+    <rect x="62" y="141" width="76" height="6" rx="3" fill="currentColor"/>
+  </symbol>
+  <symbol id="star" viewBox="0 0 24 24"><path d="M12 1.5c.9 6.4 4.1 9.6 10.5 10.5-6.4.9-9.6 4.1-10.5 10.5C11.1 16.1 7.9 12.9 1.5 12 7.9 11.1 11.1 7.9 12 1.5z" fill="currentColor"/></symbol>
   </defs>
 </svg>
 
@@ -571,6 +686,7 @@ button { cursor: pointer; }
         <li><a href="#servicios" data-i18n="nav.services">Servicios</a></li>
         <li><a href="#proceso" data-i18n="nav.process">Proceso</a></li>
         <li><a href="#portfolio" data-i18n="nav.portfolio">Portfolio</a></li>
+        <li><a href="#merch" data-i18n="nav.merch">Merch</a></li>
         <li><a href="#compromiso" data-i18n="nav.legal">Compromiso</a></li>
         <li><a href="#faq" data-i18n="nav.faq">FAQ</a></li>
         <li><a href="#contacto" data-i18n="nav.contact">Contacto</a></li>
@@ -975,7 +1091,414 @@ button { cursor: pointer; }
         </div>
       </div>
 
-      <p class="disclaimer reveal"><svg aria-hidden="true"><use href="#i-info"/></svg><span data-i18n="portfolio.note">Ejemplos ilustrativos con un club ficticio, «Tu Club». Solo mostramos trabajos reales con autorización del cliente; si no la hay, los anonimizamos. En cualquier caso, recortamos o desenfocamos cualquier producto visible.</span></p>
+    </div>
+  </section>
+
+  <!-- ============ 4b. Merchandising (mesa interactiva) ============ -->
+  <section class="section theme-dark merch" id="merch" aria-labelledby="merch-title">
+    <span class="orb orb--orange" aria-hidden="true"></span>
+    <div class="wrap">
+      <header class="section-head">
+        <p class="eyebrow reveal" data-i18n="merch.kicker">Merchandising</p>
+        <h2 class="display reveal" id="merch-title" data-i18n-html="merch.title">Tu marca, en todo lo que tocas<span class="dot">.</span></h2>
+        <p class="lead reveal" data-i18n="merch.lead">Diseño gráfico aplicado a objeto para clubs, asociaciones y growshops. Esta es nuestra mesa de trabajo: arrastra las piezas, inclínalas, cambia el color de la colección y pulsa para verlas en detalle.</p>
+      </header>
+
+      <div class="merch-toolbar reveal">
+        <div class="filters" role="group" aria-label="Filtrar por categoría" data-i18n-attr="aria-label:merch.filterAria">
+          <button type="button" aria-pressed="true" data-filter="all" data-i18n="merch.f.all">Todo</button>
+          <button type="button" aria-pressed="false" data-filter="fisico" data-i18n="merch.f.physical">Físico</button>
+          <button type="button" aria-pressed="false" data-filter="digital" data-i18n="merch.f.digital">Digital</button>
+          <button type="button" aria-pressed="false" data-filter="papeleria" data-i18n="merch.f.paper">Papelería</button>
+        </div>
+        <div class="swatches">
+          <span class="swatches-label"><svg aria-hidden="true"><use href="#i-palette"/></svg><span data-i18n="merch.color">Color</span></span>
+          <div class="swatches-opts" role="radiogroup" aria-label="Color de la colección" data-i18n-attr="aria-label:merch.colorAria">
+            <button type="button" role="radio" aria-checked="true" data-swatch="navy" style="--sw:#001F3F" aria-label="Navy"></button>
+            <button type="button" role="radio" aria-checked="false" data-swatch="teal" style="--sw:#008080" aria-label="Teal"></button>
+            <button type="button" role="radio" aria-checked="false" data-swatch="orange" style="--sw:#CC5500" aria-label="Naranja" data-i18n-attr="aria-label:merch.sw.orange"></button>
+            <button type="button" role="radio" aria-checked="false" data-swatch="white" style="--sw:#FFFFFF" aria-label="Blanco" data-i18n-attr="aria-label:merch.sw.white"></button>
+          </div>
+        </div>
+        <button type="button" class="btn btn--ghost btn--sm" data-merch-reset><svg aria-hidden="true"><use href="#i-refresh"/></svg><span data-i18n="merch.reset">Reordenar mesa</span></button>
+      </div>
+      <p class="merch-hint reveal"><svg aria-hidden="true"><use href="#i-hand"/></svg><span data-i18n="merch.hint">Arrastra · inclina · pulsa para ampliar.</span></p>
+
+      <ul class="merch__board" id="merch-board">
+        <!-- Bandeja -->
+        <li class="merch-item" data-cat="fisico">
+          <button type="button" class="piece" data-piece="tray">
+            <span class="piece__art" aria-hidden="true">
+              <svg viewBox="0 0 320 320">
+                <ellipse cx="160" cy="262" rx="122" ry="13" class="mk-shadow"/>
+                <g transform="rotate(-6 160 160)">
+                  <rect x="44" y="72" width="232" height="168" rx="24" class="mk-main"/>
+                  <rect x="58" y="86" width="204" height="140" rx="13" class="mk-soft"/>
+                  <clipPath id="cp-tray"><rect x="58" y="86" width="204" height="140" rx="13"/></clipPath>
+                  <g clip-path="url(#cp-tray)">
+                    <circle cx="262" cy="226" r="74" class="mk-acc"/>
+                    <circle cx="262" cy="226" r="50" class="mk-soft"/>
+                    <circle cx="262" cy="226" r="27" class="mk-acc"/>
+                    <g class="mk-s-ink" stroke-width="2" opacity=".18"><path d="M58 120H262M58 150H262M58 180H262M58 210H262"/></g>
+                  </g>
+                  <use href="#emblem" x="78" y="104" width="104" height="104" class="mk-c-ink"/>
+                  <text x="194" y="116" class="mk-ink" font-family="Unbounded, sans-serif" font-weight="700" font-size="9" letter-spacing="1.5">CLUB</text>
+                  <text x="194" y="128" class="mk-ink" font-family="Unbounded, sans-serif" font-weight="700" font-size="9" letter-spacing="1.5" data-i18n="mk.example">EJEMPLO</text>
+                  <rect x="56" y="77" width="208" height="5" rx="2.5" fill="#fff" opacity=".2"/>
+                </g>
+              </svg>
+            </span>
+            <span class="piece__name" data-i18n="merch.tray.name">Bandeja</span>
+            <span class="piece__detail" hidden data-i18n="merch.tray.detail">Bandeja metálica con impresión a todo color: identidad del club, patrón propio y acabado de colección.</span>
+          </button>
+        </li>
+
+        <!-- Grinder -->
+        <li class="merch-item" data-cat="fisico">
+          <button type="button" class="piece" data-piece="grinder">
+            <span class="piece__art" aria-hidden="true">
+              <svg viewBox="0 0 320 320">
+                <ellipse cx="160" cy="276" rx="98" ry="12" class="mk-shadow"/>
+                <circle cx="160" cy="156" r="110" class="mk-metal-d"/>
+                <circle cx="160" cy="156" r="104" fill="none" class="mk-s-metal-d" stroke-width="10" stroke-dasharray="3 5"/>
+                <circle cx="160" cy="156" r="93" class="mk-metal"/>
+                <circle cx="160" cy="156" r="83" class="mk-main"/>
+                <circle cx="160" cy="156" r="71" fill="none" class="mk-s-acc" stroke-width="5"/>
+                <use href="#emblem" x="104" y="100" width="112" height="112" class="mk-c-ink"/>
+                <path d="M88 104a92 92 0 0 1 58-40" stroke="#fff" stroke-opacity=".7" stroke-width="6" fill="none" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <span class="piece__name">Grinder</span>
+            <span class="piece__detail" hidden data-i18n="merch.grinder.detail">Tapa grabada o impresa con el emblema del club. Diseño circular pensado para verse de un vistazo.</span>
+          </button>
+        </li>
+
+        <!-- Mechero -->
+        <li class="merch-item" data-cat="fisico">
+          <button type="button" class="piece" data-piece="lighter">
+            <span class="piece__art" aria-hidden="true">
+              <svg viewBox="0 0 320 320">
+                <ellipse cx="160" cy="280" rx="58" ry="9" class="mk-shadow"/>
+                <g transform="rotate(8 160 170)">
+                  <rect x="116" y="98" width="88" height="176" rx="18" class="mk-main"/>
+                  <path d="M120 100h80V64a7 7 0 0 0-7-7h-66a7 7 0 0 0-7 7z" class="mk-metal"/>
+                  <rect x="128" y="38" width="28" height="22" rx="7" class="mk-metal-d"/>
+                  <path d="M133 42v14M139 42v14M145 42v14M151 42v14" class="mk-s-metal-d" stroke-width="2"/>
+                  <rect x="164" y="46" width="32" height="13" rx="4" class="mk-metal-d"/>
+                  <g fill="#000" opacity=".12"><rect x="124" y="70" width="72" height="4" rx="2"/><rect x="124" y="80" width="72" height="4" rx="2"/></g>
+                  <rect x="116" y="124" width="88" height="34" class="mk-acc"/>
+                  <text x="160" y="146" text-anchor="middle" class="mk-ink" font-family="Rubik Mono One, sans-serif" font-size="11">CLUB</text>
+                  <use href="#emblem" x="126" y="170" width="68" height="68" class="mk-c-ink"/>
+                  <text x="160" y="258" text-anchor="middle" class="mk-ink" font-family="Unbounded, sans-serif" font-weight="700" font-size="7.5" letter-spacing="1.5" data-i18n="mk.example">EJEMPLO</text>
+                  <rect x="124" y="108" width="7" height="156" rx="3.5" fill="#fff" opacity=".16"/>
+                </g>
+              </svg>
+            </span>
+            <span class="piece__name" data-i18n="merch.lighter.name">Mechero</span>
+            <span class="piece__detail" hidden data-i18n="merch.lighter.detail">Funda impresa 360° con la identidad del club. Ideal como detalle de bienvenida para nuevos socios.</span>
+          </button>
+        </li>
+
+        <!-- Camiseta -->
+        <li class="merch-item" data-cat="fisico">
+          <button type="button" class="piece" data-piece="tshirt">
+            <span class="piece__art" aria-hidden="true">
+              <svg viewBox="0 0 320 320">
+                <ellipse cx="160" cy="288" rx="100" ry="10" class="mk-shadow"/>
+                <path d="M112 50L68 66 28 110l32 38 26-18v148h148V130l26 18 32-38-40-44-44-16c-8 20-26 31-48 31s-40-11-48-31z" class="mk-main"/>
+                <path d="M28 110l32 38 9-6-31-38zM292 110l-32 38-9-6 31-38z" class="mk-acc"/>
+                <path d="M112 50c8 20 26 31 48 31s40-11 48-31" fill="none" class="mk-s-acc" stroke-width="6"/>
+                <use href="#emblem" x="112" y="104" width="96" height="96" class="mk-c-ink"/>
+                <text x="160" y="232" text-anchor="middle" class="mk-ink" font-family="Rubik Mono One, sans-serif" font-size="14">CLUB</text>
+                <text x="160" y="252" text-anchor="middle" class="mk-ink" font-family="Rubik Mono One, sans-serif" font-size="14" data-i18n="mk.example">EJEMPLO</text>
+              </svg>
+            </span>
+            <span class="piece__name" data-i18n="merch.tshirt.name">Camiseta</span>
+            <span class="piece__detail" hidden data-i18n="merch.tshirt.detail">Camisetas para el equipo o para socios: emblema en el pecho, tipografía grande y detalles en manga.</span>
+          </button>
+        </li>
+
+        <!-- Taza -->
+        <li class="merch-item" data-cat="fisico">
+          <button type="button" class="piece" data-piece="mug">
+            <span class="piece__art" aria-hidden="true">
+              <svg viewBox="0 0 320 320">
+                <ellipse cx="156" cy="262" rx="96" ry="11" class="mk-shadow"/>
+                <path d="M224 126h18a32 32 0 0 1 0 64h-18" fill="none" class="mk-s-main" stroke-width="17"/>
+                <path d="M82 92h148v134a26 26 0 0 1-26 26H108a26 26 0 0 1-26-26z" class="mk-main"/>
+                <ellipse cx="156" cy="92" rx="74" ry="12" class="mk-soft"/>
+                <ellipse cx="156" cy="93" rx="64" ry="7.5" fill="#000" opacity=".28"/>
+                <rect x="82" y="202" width="148" height="16" class="mk-acc"/>
+                <use href="#emblem" x="111" y="108" width="90" height="90" class="mk-c-ink"/>
+                <rect x="92" y="106" width="8" height="136" rx="4" fill="#fff" opacity=".14"/>
+              </svg>
+            </span>
+            <span class="piece__name" data-i18n="merch.mug.name">Taza</span>
+            <span class="piece__detail" hidden data-i18n="merch.mug.detail">Taza cerámica con impresión envolvente: el emblema al frente y una franja de color de la colección.</span>
+          </button>
+        </li>
+
+        <!-- Llavero -->
+        <li class="merch-item" data-cat="fisico">
+          <button type="button" class="piece" data-piece="keychain">
+            <span class="piece__art" aria-hidden="true">
+              <svg viewBox="0 0 320 320">
+                <ellipse cx="160" cy="290" rx="66" ry="9" class="mk-shadow"/>
+                <circle cx="160" cy="58" r="30" fill="none" class="mk-s-metal" stroke-width="7"/>
+                <rect x="152" y="86" width="16" height="26" rx="8" fill="none" class="mk-s-metal" stroke-width="5"/>
+                <rect x="152" y="106" width="16" height="26" rx="8" fill="none" class="mk-s-metal" stroke-width="5"/>
+                <g transform="rotate(5 160 210)">
+                  <rect x="94" y="128" width="132" height="148" rx="32" class="mk-main"/>
+                  <rect x="94" y="128" width="132" height="148" rx="32" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="3"/>
+                  <circle cx="160" cy="146" r="8" fill="#F4F1EA"/>
+                  <use href="#emblem" x="112" y="170" width="96" height="96" class="mk-c-ink"/>
+                  <path d="M106 150q10-12 26-14" stroke="#fff" stroke-opacity=".5" stroke-width="5" fill="none" stroke-linecap="round"/>
+                </g>
+              </svg>
+            </span>
+            <span class="piece__name" data-i18n="merch.keychain.name">Llavero</span>
+            <span class="piece__detail" hidden data-i18n="merch.keychain.detail">Llavero de metacrilato o metal con el emblema troquelado. Pequeño, duradero y muy de comunidad.</span>
+          </button>
+        </li>
+
+        <!-- Pegatinas -->
+        <li class="merch-item" data-cat="fisico">
+          <button type="button" class="piece" data-piece="stickers">
+            <span class="piece__art" aria-hidden="true">
+              <svg viewBox="0 0 320 320">
+                <ellipse cx="160" cy="280" rx="104" ry="10" class="mk-shadow"/>
+                <g transform="rotate(-4 160 160)">
+                  <rect x="62" y="40" width="196" height="232" rx="14" fill="#FFFFFF"/>
+                  <circle cx="120" cy="104" r="46" fill="#FFFFFF" stroke="#001F3F" stroke-opacity=".12" stroke-width="2"/>
+                  <circle cx="120" cy="104" r="40" class="mk-main"/>
+                  <use href="#emblem" x="86" y="70" width="68" height="68" class="mk-c-ink"/>
+                  <use href="#star" x="170" y="58" width="74" height="74" class="mk-c-acc"/>
+                  <rect x="78" y="168" width="164" height="46" rx="23" fill="#FFFFFF" stroke="#001F3F" stroke-opacity=".12" stroke-width="2"/>
+                  <rect x="83" y="173" width="154" height="36" rx="18" class="mk-acc"/>
+                  <text x="160" y="196" text-anchor="middle" class="mk-ink" font-family="Rubik Mono One, sans-serif" font-size="12">CLUB EJEMPLO</text>
+                  <rect x="186" y="134" width="54" height="26" rx="13" class="mk-main"/>
+                  <path d="M201 154v-10a12 12 0 0 1 24 0v10z" class="mk-ink"/>
+                  <rect x="88" y="226" width="70" height="30" rx="8" class="mk-soft"/>
+                  <text x="123" y="246" text-anchor="middle" class="mk-ink" font-family="Unbounded, sans-serif" font-weight="700" font-size="8" letter-spacing="1">EST. 2026</text>
+                  <path d="M234 272l24-24v10a14 14 0 0 1-14 14z" fill="#F4F1EA"/>
+                </g>
+              </svg>
+            </span>
+            <span class="piece__name" data-i18n="merch.stickers.name">Pegatinas</span>
+            <span class="piece__detail" hidden data-i18n="merch.stickers.detail">Hojas de pegatinas troqueladas con el emblema, el nombre y formas propias del club. El merchandising más compartido.</span>
+          </button>
+        </li>
+        <!-- Ticket / entrada -->
+        <li class="merch-item" data-cat="papeleria">
+          <button type="button" class="piece" data-piece="ticket">
+            <span class="piece__art" aria-hidden="true">
+              <svg viewBox="0 0 320 320">
+                <ellipse cx="160" cy="250" rx="126" ry="11" class="mk-shadow"/>
+                <g transform="rotate(-7 160 160)">
+                  <path d="M42 98h236a12 12 0 0 1 12 12v30a20 20 0 0 0 0 40v30a12 12 0 0 1-12 12H42a12 12 0 0 1-12-12v-30a20 20 0 0 0 0-40v-30a12 12 0 0 1 12-12z" class="mk-main"/>
+                  <path d="M226 106v108" class="mk-s-ink" stroke-width="2" stroke-dasharray="5 6" opacity=".55"/>
+                  <text x="52" y="126" class="mk-acc" font-family="Unbounded, sans-serif" font-weight="700" font-size="8" letter-spacing="1.6" data-i18n="mk.presents">CLUB EJEMPLO PRESENTA</text>
+                  <text x="52" y="156" class="mk-ink" font-family="Rubik Mono One, sans-serif" font-size="17" data-i18n="mk.night1">NOCHE DE</text>
+                  <text x="52" y="179" class="mk-acc" font-family="Rubik Mono One, sans-serif" font-size="17" data-i18n="mk.night2">VINILOS</text>
+                  <text x="52" y="204" class="mk-ink" font-family="Space Grotesk, sans-serif" font-weight="600" font-size="10" data-i18n="mk.ticketMeta">VIE · 21:00 · SOLO SOCIOS</text>
+                  <use href="#emblem" x="178" y="146" width="40" height="40" class="mk-c-ink"/>
+                  <text transform="translate(262 160) rotate(-90)" text-anchor="middle" class="mk-ink" font-family="Unbounded, sans-serif" font-weight="700" font-size="12" letter-spacing="1">Nº 0042</text>
+                </g>
+              </svg>
+            </span>
+            <span class="piece__name" data-i18n="merch.ticket.name">Ticket / entrada</span>
+            <span class="piece__detail" hidden data-i18n="merch.ticket.detail">Entradas numeradas tipo coleccionable para eventos internos del club. Papel grueso y troquel de talón.</span>
+          </button>
+        </li>
+
+        <!-- Flyer -->
+        <li class="merch-item" data-cat="papeleria">
+          <button type="button" class="piece" data-piece="flyer">
+            <span class="piece__art" aria-hidden="true">
+              <svg viewBox="0 0 320 320">
+                <ellipse cx="160" cy="272" rx="90" ry="10" class="mk-shadow"/>
+                <g transform="rotate(5 160 160)">
+                  <rect x="86" y="44" width="148" height="214" rx="4" class="mk-paper"/>
+                  <rect x="86" y="44" width="148" height="112" class="mk-main"/>
+                  <circle cx="196" cy="84" r="26" class="mk-acc"/>
+                  <path d="M98 156l42-52 30 34 18-18 46 36z" class="mk-soft"/>
+                  <rect x="108" y="66" width="56" height="12" rx="6" class="mk-ink" opacity=".9"/>
+                  <text x="100" y="182" class="mk-text" font-family="Rubik Mono One, sans-serif" font-size="13" data-i18n="mk.workshop1">TALLER DE</text>
+                  <text x="100" y="200" class="mk-acc" font-family="Rubik Mono One, sans-serif" font-size="13" data-i18n="mk.workshop2">SERIGRAFÍA</text>
+                  <text x="100" y="218" class="mk-text" font-family="Space Grotesk, sans-serif" font-weight="600" font-size="9.5" data-i18n="mk.workshopMeta">SÁB 07 · 18:00</text>
+                  <use href="#emblem" x="100" y="226" width="24" height="24" class="mk-c-text"/>
+                  <text x="130" y="242" class="mk-text" font-family="Unbounded, sans-serif" font-weight="700" font-size="7" letter-spacing="1">CLUB EJEMPLO</text>
+                </g>
+              </svg>
+            </span>
+            <span class="piece__name">Flyer</span>
+            <span class="piece__detail" hidden data-i18n="merch.flyer.detail">Flyers A5/A6 para actividades del club: jerarquía clara, fecha visible y estilo de la colección.</span>
+          </button>
+        </li>
+
+        <!-- Cartel de evento -->
+        <li class="merch-item" data-cat="papeleria">
+          <button type="button" class="piece" data-piece="poster">
+            <span class="piece__art" aria-hidden="true">
+              <svg viewBox="0 0 320 320">
+                <ellipse cx="160" cy="292" rx="100" ry="10" class="mk-shadow"/>
+                <rect x="70" y="22" width="180" height="262" rx="4" class="mk-main"/>
+                <text x="86" y="46" class="mk-acc" font-family="Unbounded, sans-serif" font-weight="700" font-size="7.5" letter-spacing="1.5" data-i18n="mk.presents">CLUB EJEMPLO PRESENTA</text>
+                <g class="poster-disc">
+                  <circle cx="160" cy="122" r="64" fill="#000" opacity=".38"/>
+                  <g fill="none" class="mk-s-ink" stroke-width="1" opacity=".22"><circle cx="160" cy="122" r="56"/><circle cx="160" cy="122" r="48"/><circle cx="160" cy="122" r="40"/><circle cx="160" cy="122" r="32"/></g>
+                  <circle cx="160" cy="122" r="22" class="mk-acc"/>
+                  <circle cx="160" cy="122" r="3" class="mk-main"/>
+                  <path d="M160 62a60 60 0 0 1 50 28" class="mk-s-ink" stroke-width="4" fill="none" stroke-linecap="round" opacity=".45"/>
+                </g>
+                <text x="86" y="220" class="mk-ink" font-family="Rubik Mono One, sans-serif" font-size="18.5" data-i18n="mk.night1">NOCHE DE</text>
+                <text x="86" y="245" class="mk-acc" font-family="Rubik Mono One, sans-serif" font-size="18.5" data-i18n="mk.night2">VINILOS</text>
+                <text x="86" y="268" class="mk-ink" font-family="Space Grotesk, sans-serif" font-weight="600" font-size="10" data-i18n="mk.posterMeta">VIERNES · 21:00 · SOLO SOCIOS</text>
+              </svg>
+            </span>
+            <span class="piece__name" data-i18n="merch.poster.name">Cartel de evento</span>
+            <span class="piece__detail" hidden data-i18n="merch.poster.detail">Cartelería para el local y su versión digital para redes: la misma pieza, adaptada a cada formato.</span>
+          </button>
+        </li>
+
+        <!-- Packaging -->
+        <li class="merch-item" data-cat="papeleria">
+          <button type="button" class="piece" data-piece="box">
+            <span class="piece__art" aria-hidden="true">
+              <svg viewBox="0 0 320 320">
+                <ellipse cx="160" cy="284" rx="112" ry="14" class="mk-shadow"/>
+                <path d="M160 58l110 52-110 52-110-52z" class="mk-soft"/>
+                <path d="M97 88l16-8 110 52-16 8z" class="mk-acc" opacity=".9"/>
+                <path d="M50 110l110 52v122L50 232z" class="mk-main"/>
+                <path d="M160 162l110-52v122l-110 52z" class="mk-main"/>
+                <path d="M160 162l110-52v122l-110 52z" fill="#000" opacity=".2"/>
+                <g transform="matrix(1 .4727 0 1 50 110)"><use href="#emblem" x="22" y="22" width="66" height="66" class="mk-c-ink"/></g>
+                <g transform="matrix(1 -.4727 0 1 160 162)">
+                  <text x="14" y="44" class="mk-ink" font-family="Rubik Mono One, sans-serif" font-size="12">CLUB</text>
+                  <text x="14" y="60" class="mk-ink" font-family="Rubik Mono One, sans-serif" font-size="12" data-i18n="mk.example">EJEMPLO</text>
+                  <rect x="14" y="74" width="80" height="6" rx="3" class="mk-acc"/>
+                  <rect x="14" y="86" width="56" height="6" rx="3" class="mk-acc" opacity=".6"/>
+                </g>
+              </svg>
+            </span>
+            <span class="piece__name" data-i18n="merch.box.name">Packaging</span>
+            <span class="piece__detail" hidden data-i18n="merch.box.detail">Cajas, bolsas y piezas de papel y cartón con la identidad del club: kits de bienvenida, regalos y eventos.</span>
+          </button>
+        </li>
+
+        <!-- Tarjeta de socio -->
+        <li class="merch-item" data-cat="papeleria">
+          <button type="button" class="piece" data-piece="card">
+            <span class="piece__art" aria-hidden="true">
+              <svg viewBox="0 0 320 320">
+                <ellipse cx="160" cy="252" rx="118" ry="11" class="mk-shadow"/>
+                <g transform="rotate(6 160 160)">
+                  <rect x="48" y="92" width="224" height="140" rx="14" class="mk-main"/>
+                  <path d="M62 92h196a14 14 0 0 1 14 14v22H48v-22a14 14 0 0 1 14-14z" class="mk-acc"/>
+                  <text x="62" y="115" class="mk-ink" font-family="Unbounded, sans-serif" font-weight="700" font-size="8.5" letter-spacing="1.5" data-i18n="mk.memberCard">TARJETA DE SOCIO</text>
+                  <use href="#emblem" x="206" y="144" width="52" height="52" class="mk-c-ink"/>
+                  <text x="62" y="162" class="mk-ink" font-family="Rubik Mono One, sans-serif" font-size="13">CLUB EJEMPLO</text>
+                  <text x="62" y="182" class="mk-ink" font-family="Space Grotesk, sans-serif" font-weight="600" font-size="9.5" opacity=".85" data-i18n="mk.memberNo">Nº DE SOCIO · 0137</text>
+                  <rect x="62" y="196" width="30" height="22" rx="4" fill="#F4F1EA"/>
+                  <path d="M62 207h30M77 196v22" stroke="#001F3F" stroke-opacity=".3" stroke-width="1.5"/>
+                  <rect x="102" y="206" width="78" height="6" rx="3" class="mk-ink" opacity=".35"/>
+                </g>
+              </svg>
+            </span>
+            <span class="piece__name" data-i18n="merch.card.name">Tarjeta de socio</span>
+            <span class="piece__detail" hidden data-i18n="merch.card.detail">Tarjeta de socio con la identidad del club: número, emblema y acabados especiales. Pertenencia en el bolsillo.</span>
+          </button>
+        </li>
+        <!-- Portada de redes -->
+        <li class="merch-item" data-cat="digital">
+          <button type="button" class="piece" data-piece="cover">
+            <span class="piece__art" aria-hidden="true">
+              <svg viewBox="0 0 320 320">
+                <rect x="22" y="66" width="276" height="196" rx="16" fill="#FFFFFF"/>
+                <path d="M22 82a16 16 0 0 1 16-16h244a16 16 0 0 1 16 16v76H22z" class="mk-main"/>
+                <g class="mk-acc" opacity=".9"><use href="#star" x="236" y="80" width="34" height="34"/><use href="#star" x="204" y="118" width="18" height="18"/></g>
+                <text x="110" y="112" class="mk-ink" font-family="Rubik Mono One, sans-serif" font-size="16">CLUB EJEMPLO</text>
+                <text x="110" y="132" class="mk-ink" font-family="Unbounded, sans-serif" font-weight="600" font-size="6.2" letter-spacing=".6" opacity=".85" data-i18n="mk.coverTag">COMUNIDAD · EVENTOS · CULTURA</text>
+                <circle cx="66" cy="160" r="34" fill="#FFFFFF"/>
+                <circle cx="66" cy="160" r="29" class="mk-acc"/>
+                <use href="#emblem" x="43" y="137" width="46" height="46" class="mk-c-ink"/>
+                <rect x="40" y="206" width="110" height="11" rx="5.5" fill="#001F3F"/>
+                <rect x="40" y="224" width="170" height="8" rx="4" fill="#001F3F" opacity=".25"/>
+                <rect x="40" y="238" width="130" height="8" rx="4" fill="#001F3F" opacity=".25"/>
+                <rect x="212" y="200" width="66" height="24" rx="12" class="mk-acc"/>
+              </svg>
+            </span>
+            <span class="piece__name" data-i18n="merch.cover.name">Portada de redes</span>
+            <span class="piece__detail" hidden data-i18n="merch.cover.detail">Portadas, avatar y cabeceras coherentes para todos los perfiles: lo primero que ve quien os busca.</span>
+          </button>
+        </li>
+
+        <!-- Destacados -->
+        <li class="merch-item" data-cat="digital">
+          <button type="button" class="piece" data-piece="highlights">
+            <span class="piece__art" aria-hidden="true">
+              <svg viewBox="0 0 320 320">
+                <g font-family="Unbounded, sans-serif" font-weight="700" font-size="8" fill="#001F3F" text-anchor="middle" letter-spacing="1">
+                  <g><circle cx="88" cy="118" r="44" fill="none" class="mk-s-acc" stroke-width="4"/><circle cx="88" cy="118" r="37" class="mk-main"/><use href="#i-shield" x="70" y="100" width="36" height="36" class="mk-c-ink"/><text x="88" y="180" data-i18n="mk.h1">NORMAS</text></g>
+                  <g><circle cx="232" cy="118" r="44" fill="none" class="mk-s-acc" stroke-width="4"/><circle cx="232" cy="118" r="37" class="mk-main"/><use href="#i-calendar" x="214" y="100" width="36" height="36" class="mk-c-ink"/><text x="232" y="180" data-i18n="mk.h2">EVENTOS</text></g>
+                  <g><circle cx="88" cy="234" r="44" fill="none" class="mk-s-acc" stroke-width="4"/><circle cx="88" cy="234" r="37" class="mk-main"/><use href="#i-users" x="70" y="216" width="36" height="36" class="mk-c-ink"/><text x="88" y="296" data-i18n="mk.h3">SOCIOS</text></g>
+                  <g><circle cx="232" cy="234" r="44" fill="none" class="mk-s-acc" stroke-width="4"/><circle cx="232" cy="234" r="37" class="mk-main"/><use href="#i-pin" x="214" y="216" width="36" height="36" class="mk-c-ink"/><text x="232" y="296" data-i18n="mk.h4">INFO</text></g>
+                </g>
+              </svg>
+            </span>
+            <span class="piece__name" data-i18n="merch.highlights.name">Destacados</span>
+            <span class="piece__detail" hidden data-i18n="merch.highlights.detail">Iconos de historias destacadas a juego: normas, eventos, socios e información, siempre a mano.</span>
+          </button>
+        </li>
+
+        <!-- Post de evento -->
+        <li class="merch-item" data-cat="digital">
+          <button type="button" class="piece" data-piece="eventpost">
+            <span class="piece__art" aria-hidden="true">
+              <svg viewBox="0 0 320 320">
+                <rect x="46" y="30" width="228" height="268" rx="14" fill="#FFFFFF"/>
+                <circle cx="66" cy="50" r="9" class="mk-acc"/>
+                <rect x="82" y="45" width="70" height="9" rx="4.5" fill="#001F3F"/>
+                <rect x="58" y="68" width="204" height="190" class="mk-main"/>
+                <g class="mk-acc"><rect x="206" y="68" width="28" height="28"/><rect x="234" y="96" width="28" height="28"/><rect x="206" y="124" width="28" height="28"/><rect x="234" y="68" width="28" height="28" opacity=".35"/><rect x="206" y="96" width="28" height="28" opacity=".35"/><rect x="234" y="124" width="28" height="28" opacity=".35"/></g>
+                <text x="72" y="100" class="mk-ink" font-family="Unbounded, sans-serif" font-weight="700" font-size="8" letter-spacing="1.6" data-i18n="mk.saturday">SÁBADO</text>
+                <text x="72" y="190" class="mk-ink" font-family="Rubik Mono One, sans-serif" font-size="17" data-i18n="mk.chess1">TORNEO DE</text>
+                <text x="72" y="212" class="mk-ink" font-family="Rubik Mono One, sans-serif" font-size="17" data-i18n="mk.chess2">AJEDREZ</text>
+                <rect x="72" y="226" width="96" height="20" rx="10" class="mk-acc"/>
+                <text x="120" y="240" text-anchor="middle" class="mk-ink" font-family="Unbounded, sans-serif" font-weight="700" font-size="7.5" data-i18n="mk.chessMeta">SÁB 18 · 17:00</text>
+                <use href="#i-heart" x="58" y="266" width="20" height="20" color="#001F3F"/>
+                <use href="#i-chat" x="86" y="266" width="20" height="20" color="#001F3F"/>
+                <use href="#i-send" x="114" y="266" width="20" height="20" color="#001F3F"/>
+              </svg>
+            </span>
+            <span class="piece__name" data-i18n="merch.eventpost.name">Post de evento</span>
+            <span class="piece__detail" hidden data-i18n="merch.eventpost.detail">Posts de eventos internos con la misma línea gráfica que el cartel físico: todo se reconoce a la primera.</span>
+          </button>
+        </li>
+        <!-- Story de evento -->
+        <li class="merch-item" data-cat="digital">
+          <button type="button" class="piece" data-piece="story">
+            <span class="piece__art" aria-hidden="true">
+              <svg viewBox="0 0 320 320">
+                <rect x="92" y="14" width="136" height="292" rx="24" fill="#00122A"/>
+                <rect x="99" y="21" width="122" height="278" rx="18" class="mk-main"/>
+                <g class="mk-ink"><rect x="108" y="32" width="33" height="3" rx="1.5"/><rect x="144" y="32" width="33" height="3" rx="1.5" opacity=".4"/><rect x="180" y="32" width="33" height="3" rx="1.5" opacity=".4"/></g>
+                <circle cx="115" cy="49" r="7" class="mk-acc"/>
+                <rect x="126" y="46" width="44" height="6" rx="3" class="mk-ink" opacity=".8"/>
+                <circle cx="160" cy="124" r="42" class="mk-acc"/>
+                <use href="#emblem" x="131" y="95" width="58" height="58" class="mk-c-ink"/>
+                <text x="160" y="196" text-anchor="middle" class="mk-ink" font-family="Unbounded, sans-serif" font-weight="700" font-size="7.5" letter-spacing="1.5" data-i18n="story2.kicker">Este viernes</text>
+                <text x="160" y="218" text-anchor="middle" class="mk-ink" font-family="Rubik Mono One, sans-serif" font-size="13" data-i18n="mk.night1">NOCHE DE</text>
+                <text x="160" y="236" text-anchor="middle" class="mk-acc" font-family="Rubik Mono One, sans-serif" font-size="13" data-i18n="mk.night2">VINILOS</text>
+                <rect x="114" y="254" width="92" height="24" rx="12" fill="#FFFFFF"/>
+                <text x="160" y="270" text-anchor="middle" fill="#001F3F" font-family="Unbounded, sans-serif" font-weight="700" font-size="7" letter-spacing=".5" data-i18n="mk.remind">RECORDÁRMELO</text>
+              </svg>
+            </span>
+            <span class="piece__name" data-i18n="merch.story.name">Story de evento</span>
+            <span class="piece__detail" hidden data-i18n="merch.story.detail">Stories de evento a juego con el cartel y la entrada: cuenta atrás, recordatorio y la misma identidad en todas partes.</span>
+          </button>
+        </li>
+      </ul>
     </div>
   </section>
 
@@ -1126,6 +1649,25 @@ button { cursor: pointer; }
   </div>
 </footer>
 
+<dialog class="viewer" id="merch-viewer" aria-labelledby="viewer-title">
+  <button type="button" class="dialog-close viewer-close" data-close aria-label="Cerrar" data-i18n-attr="aria-label:a11y.close"><svg aria-hidden="true"><use href="#i-close"/></svg></button>
+  <div class="viewer-panel">
+    <div class="viewer-stage" id="viewer-stage"></div>
+    <div class="viewer-info">
+      <p class="eyebrow viewer-cat" id="viewer-cat"></p>
+      <h2 class="viewer-title" id="viewer-title"></h2>
+      <p class="viewer-detail" id="viewer-detail"></p>
+      <div class="viewer-nav">
+        <button type="button" class="icon-btn" data-viewer="prev" aria-label="Pieza anterior" data-i18n-attr="aria-label:viewer.prev"><svg aria-hidden="true"><use href="#i-chev-l"/></svg></button>
+        <span class="viewer-count" id="viewer-count" aria-live="polite">1 / 16</span>
+        <button type="button" class="icon-btn" data-viewer="next" aria-label="Pieza siguiente" data-i18n-attr="aria-label:viewer.next"><svg aria-hidden="true"><use href="#i-chev-r"/></svg></button>
+      </div>
+      <p class="viewer-cta" data-i18n="viewer.cta">¿Quieres diseñar el merchandising de tu club? Escríbenos y lo vemos en tu local.</p>
+      <a class="btn btn--primary" href="#contacto" data-viewer-contact><span data-i18n="cta.talk">Hablemos</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+</dialog>
+
 <script>
 (function () {
   "use strict";
@@ -1268,7 +1810,6 @@ button { cursor: pointer; }
     "ba4.l1": "A collection consistent with the identity",
     "ba4.l2": "Apparel, stationery, membership cards and packaging",
     "ba4.l3": "Files prepared for your printer",
-    "portfolio.note": "Illustrative examples with a fictional club, «Tu Club». We only show real work with the client's permission; otherwise we anonymise it. In every case, we crop or blur any visible product.",
 
     "legal.eyebrow": "Legal commitment",
     "legal.title": 'Content that complies<span class="dot" style="color:var(--navy)">.</span>',
@@ -1308,6 +1849,81 @@ button { cursor: pointer; }
     "faq.q8": "Are the files ours?",
     "faq.a8": "Yes. When we finish, we hand over the final files and access details so you can use them for your brand. Terms of use are set out in the proposal.",
 
+    /* Merchandising */
+    "mk.example": "EJEMPLO",
+    "merch.tray.name": "Tray",
+    "merch.tray.detail": "Metal tray with full-colour print: the club's identity, its own pattern and a collection finish.",
+    "merch.grinder.detail": "Lid engraved or printed with the club emblem. A circular design made to be read at a glance.",
+    "merch.lighter.name": "Lighter",
+    "merch.lighter.detail": "360° printed sleeve with the club's identity. Ideal as a welcome detail for new members.",
+    "merch.tshirt.name": "T-shirt",
+    "merch.tshirt.detail": "T-shirts for the team or for members: emblem on the chest, big type and sleeve details.",
+    "merch.mug.name": "Mug",
+    "merch.mug.detail": "Ceramic mug with wrap-around print: the emblem on the front and a band in the collection colour.",
+    "merch.keychain.name": "Keyring",
+    "merch.keychain.detail": "Acrylic or metal keyring with the die-cut emblem. Small, durable and very community.",
+    "merch.stickers.name": "Stickers",
+    "merch.stickers.detail": "Die-cut sticker sheets with the club's emblem, name and its own shapes. The most shared merchandise of all.",
+    "mk.presents": "CLUB EJEMPLO PRESENTS",
+    "mk.night1": "VINYL",
+    "mk.night2": "NIGHT",
+    "mk.ticketMeta": "FRI · 9 PM · MEMBERS ONLY",
+    "merch.ticket.name": "Ticket / entry",
+    "merch.ticket.detail": "Numbered, collectible-style tickets for the club's internal events. Thick paper and a tear-off stub.",
+    "mk.workshop1": "SCREEN-",
+    "mk.workshop2": "PRINTING",
+    "mk.workshopMeta": "SAT 07 · 6 PM",
+    "merch.flyer.detail": "A5/A6 flyers for club activities: clear hierarchy, visible date and the collection's style.",
+    "mk.posterMeta": "FRIDAY · 9 PM · MEMBERS ONLY",
+    "merch.poster.name": "Event poster",
+    "merch.poster.detail": "Posters for the venue and their digital version for social media: the same piece, adapted to each format.",
+    "merch.box.name": "Packaging",
+    "merch.box.detail": "Boxes, bags and paper and cardboard pieces with the club's identity: welcome kits, gifts and events.",
+    "mk.memberCard": "MEMBERSHIP CARD",
+    "mk.memberNo": "MEMBER NO. · 0137",
+    "merch.card.name": "Membership card",
+    "merch.card.detail": "Membership card with the club's identity: number, emblem and special finishes. Belonging in your pocket.",
+    "mk.coverTag": "COMMUNITY · EVENTS · CULTURE",
+    "merch.cover.name": "Social media cover",
+    "merch.cover.detail": "Consistent covers, avatars and headers for every profile: the first thing people see when they look you up.",
+    "mk.h1": "RULES",
+    "mk.h2": "EVENTS",
+    "mk.h3": "MEMBERS",
+    "mk.h4": "INFO",
+    "merch.highlights.name": "Highlights",
+    "merch.highlights.detail": "Matching story highlight icons: rules, events, members and info, always at hand.",
+    "mk.saturday": "SATURDAY",
+    "mk.chess1": "CHESS",
+    "mk.chess2": "TOURNAMENT",
+    "mk.chessMeta": "SAT 18 · 5 PM",
+    "merch.eventpost.name": "Event post",
+    "merch.eventpost.detail": "Internal event posts with the same look as the physical poster: everything is recognisable at first sight.",
+    "story2.kicker": "This Friday",
+    "mk.remind": "REMIND ME",
+    "merch.story.name": "Event story",
+    "merch.story.detail": "Event stories matching the poster and the ticket: countdown, reminder and the same identity everywhere.",
+    "nav.merch": "Merch",
+    "merch.kicker": "Merchandise",
+    "merch.title": "Your brand, on everything you touch<span class=\"dot\">.</span>",
+    "merch.lead": "Graphic design applied to objects for clubs, associations and grow shops. This is our worktable: drag the pieces, tilt them, change the collection's colour and tap to see them in detail.",
+    "merch.filterAria": "Filter by category",
+    "merch.f.all": "All",
+    "merch.f.physical": "Physical",
+    "merch.f.digital": "Digital",
+    "merch.f.paper": "Stationery",
+    "merch.color": "Colour",
+    "merch.colorAria": "Collection colour",
+    "merch.sw.orange": "Orange",
+    "merch.sw.white": "White",
+    "merch.reset": "Tidy up table",
+    "merch.hint": "Drag · tilt · tap to enlarge.",
+    "viewer.prev": "Previous piece",
+    "viewer.next": "Next piece",
+    "viewer.cta": "Want to design your club's merchandise? Write to us and we'll look at it at your venue.",
+    "merch.cat.fisico": "Physical",
+    "merch.cat.digital": "Digital",
+    "merch.cat.papeleria": "Stationery",
+
     "contact.eyebrow": "Contact",
     "contact.title": 'Let\'s talk<span class="dot">.</span>',
     "contact.lead": "Message us on Instagram, tell us what you need and we'll suggest a meeting at your venue, with no commitment.",
@@ -1333,6 +1949,9 @@ button { cursor: pointer; }
 
   var ES_JS = {
     "a11y.menuClose": "Cerrar menú",
+    "merch.cat.fisico": "Físico",
+    "merch.cat.digital": "Digital",
+    "merch.cat.papeleria": "Papelería",
     "js.copied": "¡Copiado! Pégalo en el buscador de Instagram.",
     "js.copyFail": "No se ha podido copiar. El usuario es @markeweed.es"
   };
@@ -1367,6 +1986,7 @@ button { cursor: pointer; }
     doc.querySelectorAll("[data-lang]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-lang") === lang)); });
     syncMenuLabel();
     if (typeof baUpdaters !== "undefined") baUpdaters.forEach(function (fn) { fn(); });
+    if (typeof viewer !== "undefined" && viewer && viewer.open) renderViewer();
     if (persist) store.set("mw-lang", lang);
   }
 
@@ -1451,6 +2071,213 @@ button { cursor: pointer; }
     range.addEventListener("input", update);
     baUpdaters.push(update);
     update();
+  });
+
+  /* =========================================================
+     Merchandising: filtros, color, inclinar, arrastrar y visor
+     ========================================================= */
+  var SWATCHES = {
+    navy:   { main: "#001F3F", acc: "#CC5500", ink: "#FFFFFF", soft: "#0A3157", paper: "#FFFFFF", text: "#001F3F", edge: "transparent", edgeW: 0 },
+    teal:   { main: "#008080", acc: "#001F3F", ink: "#FFFFFF", soft: "#3FB0B0", paper: "#FFFFFF", text: "#001F3F", edge: "transparent", edgeW: 0 },
+    orange: { main: "#CC5500", acc: "#001F3F", ink: "#FFFFFF", soft: "#F08A3C", paper: "#FFFFFF", text: "#001F3F", edge: "transparent", edgeW: 0 },
+    white:  { main: "#FFFFFF", acc: "#CC5500", ink: "#001F3F", soft: "#F4F1EA", paper: "#001F3F", text: "#FFFFFF", edge: "rgba(0,31,63,.22)", edgeW: 2 }
+  };
+  var board = doc.getElementById("merch-board");
+  var items = Array.prototype.slice.call(board.querySelectorAll(".merch-item"));
+  var viewer = doc.getElementById("merch-viewer");
+  var stage = doc.getElementById("viewer-stage");
+  var current = -1;
+
+  function applySwatch(name) {
+    var sw = SWATCHES[name] || SWATCHES.navy;
+    var st = root.style;
+    st.setProperty("--m-main", sw.main); st.setProperty("--m-acc", sw.acc); st.setProperty("--m-ink", sw.ink);
+    st.setProperty("--m-soft", sw.soft); st.setProperty("--m-paper", sw.paper); st.setProperty("--m-text", sw.text);
+    st.setProperty("--m-edge", sw.edge); st.setProperty("--m-edge-w", sw.edgeW);
+  }
+
+  // Filtros
+  var filterGroup = doc.querySelector(".merch .filters");
+  filterGroup.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-filter]");
+    if (!b) return;
+    var f = b.getAttribute("data-filter");
+    filterGroup.querySelectorAll("[data-filter]").forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+    items.forEach(function (li) {
+      var match = f === "all" || li.getAttribute("data-cat") === f;
+      if (!match && !li.hidden) {
+        li.classList.add("is-hiding");
+        window.setTimeout(function () { if (li.classList.contains("is-hiding")) { li.hidden = true; li.classList.remove("is-hiding"); } }, reduceMotion ? 0 : 380);
+      } else if (match) {
+        li.classList.remove("is-hiding");
+        if (li.hidden) {
+          li.hidden = false;
+          li.classList.remove("is-showing");
+          void li.offsetWidth;
+          li.classList.add("is-showing");
+        }
+      }
+    });
+  });
+
+  // Color de la colección (radiogroup)
+  var swGroup = doc.querySelector(".swatches-opts");
+  var swBtns = Array.prototype.slice.call(swGroup.querySelectorAll("[data-swatch]"));
+  function selectSwatch(b, focus) {
+    swBtns.forEach(function (x) { x.setAttribute("aria-checked", String(x === b)); x.tabIndex = x === b ? 0 : -1; });
+    if (focus) b.focus();
+    applySwatch(b.getAttribute("data-swatch"));
+  }
+  swGroup.addEventListener("click", function (e) { var b = e.target.closest("[data-swatch]"); if (b) selectSwatch(b, false); });
+  swGroup.addEventListener("keydown", function (e) {
+    var i = swBtns.indexOf(doc.activeElement);
+    if (i === -1) return;
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") { e.preventDefault(); selectSwatch(swBtns[(i + 1) % swBtns.length], true); }
+    if (e.key === "ArrowLeft" || e.key === "ArrowUp") { e.preventDefault(); selectSwatch(swBtns[(i - 1 + swBtns.length) % swBtns.length], true); }
+  });
+  selectSwatch(swBtns[0], false);
+
+  // Inclinar y arrastrar
+  var zTop = 1;
+  items.forEach(function (li) {
+    var piece = li.querySelector(".piece");
+    var state = { tx: 0, ty: 0, drag: null, moved: false };
+    piece._state = state;
+    piece.setAttribute("aria-haspopup", "dialog");
+    function setT() { piece.style.setProperty("--tx", state.tx + "px"); piece.style.setProperty("--ty", state.ty + "px"); }
+
+    piece.addEventListener("pointermove", function (e) {
+      if (state.drag) {
+        var dx = e.clientX - state.drag.x, dy = e.clientY - state.drag.y;
+        if (!state.moved && Math.hypot(dx, dy) > 6) {
+          state.moved = true;
+          piece.classList.add("is-dragging");
+          piece.style.setProperty("--rx", "0deg"); piece.style.setProperty("--ry", "0deg");
+          li.classList.add("is-top");
+          li.style.zIndex = String(++zTop + 10);
+          try { piece.setPointerCapture(e.pointerId); } catch (err) {}
+        }
+        if (state.moved) {
+          var br = board.getBoundingClientRect(), pr = state.drag.rect;
+          // Mantener la pieza dentro de la mesa
+          var minX = br.left - pr.left + state.drag.tx - pr.width * 0.3;
+          var maxX = br.right - pr.right + state.drag.tx + pr.width * 0.3;
+          var minY = br.top - pr.top + state.drag.ty - pr.height * 0.3;
+          var maxY = br.bottom - pr.bottom + state.drag.ty + pr.height * 0.3;
+          state.tx = Math.max(minX, Math.min(maxX, state.drag.tx + dx));
+          state.ty = Math.max(minY, Math.min(maxY, state.drag.ty + dy));
+          setT();
+        }
+        return;
+      }
+      if (e.pointerType !== "mouse" || reduceMotion) return;
+      var r = piece.getBoundingClientRect();
+      var px = (e.clientX - r.left) / r.width - 0.5;
+      var py = (e.clientY - r.top) / r.height - 0.5;
+      piece.classList.add("is-tilting");
+      piece.style.setProperty("--rx", (-py * 16).toFixed(2) + "deg");
+      piece.style.setProperty("--ry", (px * 18).toFixed(2) + "deg");
+    });
+    piece.addEventListener("pointerleave", function () {
+      if (state.drag) return;
+      piece.classList.remove("is-tilting");
+      piece.style.setProperty("--rx", "0deg"); piece.style.setProperty("--ry", "0deg");
+    });
+    piece.addEventListener("pointerdown", function (e) {
+      if (e.button !== 0) return;
+      state.moved = false;
+      state.drag = { x: e.clientX, y: e.clientY, tx: state.tx, ty: state.ty, rect: piece.getBoundingClientRect() };
+    });
+    function end() {
+      if (!state.drag) return;
+      state.drag = null;
+      piece.classList.remove("is-dragging");
+      if (state.moved) { piece._justDragged = true; window.setTimeout(function () { piece._justDragged = false; }, 50); }
+    }
+    piece.addEventListener("pointerup", end);
+    piece.addEventListener("pointercancel", function () { state.moved = false; end(); });
+    piece.addEventListener("click", function (e) {
+      if (piece._justDragged) { e.preventDefault(); return; }
+      openViewer(visibleItems().indexOf(li), piece);
+    });
+  });
+  doc.querySelector("[data-merch-reset]").addEventListener("click", function () {
+    items.forEach(function (li) {
+      var p = li.querySelector(".piece");
+      p._state.tx = 0; p._state.ty = 0;
+      p.style.setProperty("--tx", "0px"); p.style.setProperty("--ty", "0px");
+      li.classList.remove("is-top");
+      li.style.zIndex = "";
+    });
+  });
+
+  function visibleItems() { return items.filter(function (li) { return !li.hidden && !li.classList.contains("is-hiding"); }); }
+  function nameOf(li) { return li.querySelector(".piece__name").textContent.trim(); }
+
+  // Visor: clona el SVG de la pieza renombrando sus ids
+  function cloneArt(li) {
+    var svg = li.querySelector(".piece__art svg").cloneNode(true);
+    var ids = [];
+    svg.querySelectorAll("[id]").forEach(function (el) { ids.push(el.id); el.id = el.id + "-v"; });
+    if (ids.length) {
+      svg.querySelectorAll("*").forEach(function (el) {
+        ["clip-path", "href", "fill", "mask", "filter"].forEach(function (attr) {
+          var v = el.getAttribute(attr);
+          if (!v) return;
+          ids.forEach(function (id) {
+            v = v.replace("url(#" + id + ")", "url(#" + id + "-v)");
+            if (v === "#" + id) v = "#" + id + "-v";
+          });
+          el.setAttribute(attr, v);
+        });
+      });
+    }
+    svg.setAttribute("role", "img");
+    svg.removeAttribute("aria-hidden");
+    svg.setAttribute("aria-label", nameOf(li));
+    return svg;
+  }
+  function renderViewer() {
+    var list = visibleItems();
+    if (current < 0 || current >= list.length) return;
+    var li = list[current];
+    stage.innerHTML = "";
+    stage.appendChild(cloneArt(li));
+    doc.getElementById("viewer-title").textContent = nameOf(li);
+    doc.getElementById("viewer-cat").textContent = t("merch.cat." + li.getAttribute("data-cat"));
+    doc.getElementById("viewer-detail").textContent = li.querySelector(".piece__detail").textContent;
+    doc.getElementById("viewer-count").textContent = (current + 1) + " / " + list.length;
+  }
+  var viewerOpener = null;
+  function openViewer(i, trigger) {
+    if (i < 0) return;
+    current = i;
+    renderViewer();
+    if (!viewer.open) { viewerOpener = trigger; viewer.showModal(); }
+  }
+  function step(d) { var n = visibleItems().length; current = (current + d + n) % n; renderViewer(); }
+  viewer.addEventListener("click", function (e) {
+    if (e.target === viewer) { viewer.close(); return; } // clic en el fondo
+    var b = e.target.closest("[data-viewer]");
+    if (b) step(b.getAttribute("data-viewer") === "next" ? 1 : -1);
+    if (e.target.closest("[data-close]")) viewer.close();
+    if (e.target.closest("[data-viewer-contact]")) { viewerOpener = null; viewer.close(); }
+  });
+  viewer.addEventListener("keydown", function (e) {
+    if (e.target.closest && e.target.closest("a")) return;
+    if (e.key === "ArrowRight") { e.preventDefault(); step(1); }
+    if (e.key === "ArrowLeft") { e.preventDefault(); step(-1); }
+  });
+  viewer.addEventListener("close", function () {
+    current = -1;
+    if (viewerOpener && doc.contains(viewerOpener)) viewerOpener.focus();
+  });
+  var sx = null;
+  stage.addEventListener("pointerdown", function (e) { sx = e.clientX; });
+  stage.addEventListener("pointerup", function (e) {
+    if (sx == null) return;
+    var dx = e.clientX - sx; sx = null;
+    if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1);
   });
 
   /* Copiar usuario de Instagram */
