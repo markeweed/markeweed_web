@@ -8,10 +8,10 @@
   function t(k, p) { return MW.i18n.t(k, p); }
 
   var SWATCHES = {
-    navy:   { main: "#001F3F", acc: "#CC5500", ink: "#FFFFFF", soft: "#0A3157", paper: "#FBFAF6", text: "#001F3F", edge: "transparent", edgeW: 0 },
-    teal:   { main: "#008080", acc: "#001F3F", ink: "#FFFFFF", soft: "#006B6B", paper: "#FBFAF6", text: "#001F3F", edge: "transparent", edgeW: 0 },
-    orange: { main: "#CC5500", acc: "#001F3F", ink: "#FFFFFF", soft: "#B04900", paper: "#FBFAF6", text: "#001F3F", edge: "transparent", edgeW: 0 },
-    white:  { main: "#F7F5F0", acc: "#CC5500", ink: "#001F3F", soft: "#E6E0D3", paper: "#001F3F", text: "#FFFFFF", edge: "rgba(0,31,63,.22)", edgeW: 2 }
+    navy:   { main: "#001F3F", acc: "#CC5500", ink: "#FFFFFF", soft: "#0A3157", paper: "#FFFFFF", text: "#001F3F", edge: "transparent", edgeW: 0 },
+    teal:   { main: "#008080", acc: "#001F3F", ink: "#FFFFFF", soft: "#3FB0B0", paper: "#FFFFFF", text: "#001F3F", edge: "transparent", edgeW: 0 },
+    orange: { main: "#CC5500", acc: "#001F3F", ink: "#FFFFFF", soft: "#F08A3C", paper: "#FFFFFF", text: "#001F3F", edge: "transparent", edgeW: 0 },
+    white:  { main: "#FFFFFF", acc: "#CC5500", ink: "#001F3F", soft: "#F4F1EA", paper: "#001F3F", text: "#FFFFFF", edge: "rgba(0,31,63,.22)", edgeW: 2 }
   };
 
   var board, items, viewer, stage, current = -1;

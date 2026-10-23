@@ -69,7 +69,8 @@ ul, ol { padding: 0; list-style: none; }
   text-decoration: none;
   transition: top var(--dur-fast);
 }
-.skip-link:focus { top: 12px; }
+.skip-link:not(:focus) { opacity: 0; pointer-events: none; }
+.skip-link:focus { top: 12px; opacity: 1; }
 
 /* ---------- Tipografía ---------- */
 .display {
@@ -241,7 +242,7 @@ ul, ol { padding: 0; list-style: none; }
 .btn:hover .ico { transform: translateX(3px); }
 .btn:active { transform: scale(.97); }
 .btn--primary { --btn-bg: var(--orange); --btn-fg: var(--white); }
-.btn--primary:hover { --btn-bg: #B34A00; box-shadow: 0 10px 30px -10px rgba(204, 85, 0, .7); }
+.btn--primary:hover { --btn-bg: color-mix(in srgb, var(--orange) 86%, var(--black)); box-shadow: 0 10px 30px -10px rgba(204, 85, 0, .7); }
 .btn--navy { --btn-bg: var(--navy); --btn-fg: var(--white); }
 .btn--navy:hover { --btn-bg: var(--navy-700); }
 .btn--paper { --btn-bg: var(--paper); --btn-fg: var(--navy); }

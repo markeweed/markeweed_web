@@ -42,14 +42,13 @@
 
   /* Derivados */
   --paper: #F4F1EA;
-  --paper-2: #EAE5D9;
+  --paper-2: color-mix(in srgb, var(--navy) 6%, var(--paper));
   --navy-900: #00122A;
-  --navy-800: #001833;
   --navy-700: #0A3157;
   --teal-300: #3FB0B0;
-  --teal-100: #CFE8E6;
+  --teal-100: color-mix(in srgb, var(--teal-300) 25%, var(--white));
   --orange-300: #F08A3C;
-  --orange-100: #F8DCC6;
+  --orange-100: color-mix(in srgb, var(--orange-300) 28%, var(--white));
 
   /* Tintas */
   --line-dark: rgba(255, 255, 255, 0.14);
