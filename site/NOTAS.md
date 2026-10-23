@@ -1,47 +1,65 @@
-# MarkeWeed · Portfolio — Notas
+# MarkeWeed · Web — Notas
 
-## Probar en local
+Rediseño completo (octubre 2026) según el encargo nuevo: web B2B de imagen y branding para asociaciones, clubs y growshops de Madrid. **Sustituye** al portfolio anterior (packs, stories, configurador): ver la nota al principio de `PROYECTO.md`.
+
+## Qué hay en `site/`
+| Archivo | Para qué |
+|---|---|
+| `index.html` | **La web entera**, autocontenida: HTML + CSS + JS en línea, fuentes WOFF2 incrustadas en base64, logo SVG en un `<symbol>`, favicon como data URI. |
+| `_headers` | `noindex`, CSP estricta (scripts por hash), `form-action 'self'` para el formulario. |
+| `robots.txt` | `Disallow: /`. |
+| `img/og-image.png` | Previsualización al compartir el enlace (rehecha: ya no dice "más socios"). |
+| `img/apple-touch-icon.png`, `img/favicon.svg` | Iconos. |
+| `fonts/` | WOFF2 originales y licencias OFL (las fuentes ya van incrustadas en `index.html`; se guardan como fuente y por la licencia). |
+
+## Probar y desplegar
 ```bash
-npx serve site          # o: npx http-server site
+npx http-server site     # o abrir site/index.html directamente (el formulario solo envía en Netlify)
 ```
-También puedes abrir `site/index.html` directamente: todos los scripts son clásicos (`defer`) y funcionan sin servidor.
+Netlify: arrastrar `site/` a Netlify Drop o `netlify deploy --dir=site --prod` (el `netlify.toml` ya publica `site`).
 
-## Desplegar en Netlify
-- Arrastra la carpeta `site/` a **Netlify Drop**, o
-- `netlify deploy --dir=site --prod`, o conecta el repo (el `netlify.toml` de la raíz ya publica `site`).
+## ⚠️ Tras editar cualquier `<script>` de `index.html`
+La CSP permite solo los scripts en línea cuyo hash conoce. Después de cambiar el JS:
+```bash
+python3 tools/csp-hash.py
+```
+Si no, en Netlify el JS no se ejecutará (la web sigue legible: hay modo sin JS).
 
-`_headers` aplica `noindex`, CSP estricta (solo recursos propios, `connect-src 'none'`) y otras cabeceras de seguridad. `robots.txt` bloquea todo.
+## Rellenar antes de publicar
+- `[TITULAR]`, `[NIF]`, `[DOMICILIO]`, `[EMAIL]` y `[DATOS REGISTRALES…]` en **Aviso legal**, **Privacidad** y en la primera capa de información del formulario (`[TITULAR]`). Están en ES (HTML) y en EN (`legalNotice.body` y `privacy.body` del diccionario `EN` del script). Buscar `[` en el archivo.
+- Revisar los textos legales con asesoría jurídica (son una base sólida, no asesoramiento).
+- Netlify Forms: activar las notificaciones por email del formulario `contacto` en el panel de Netlify (Forms → Notifications).
 
-## Decisiones tomadas
+## Decisiones tomadas (y por qué)
 | Tema | Decisión |
 |---|---|
-| Ejemplos | **Mezcla**: stories y posts con la marca **MarkeWeed** (cuenta `markeweed`, cada story etiquetada con su "Formato"); merchandising, carteles, tickets y flyers para el club ficticio **«Club Ejemplo»** (emblema propio en el sprite: `#emblem`). |
-| Imágenes | Solo SVG/CSS dibujados a mano. Sin fotos, sin personas, sin plantas, humo ni producto. Sin vapor en la taza (podía leerse como humo). |
-| +18 | **Pantalla bloqueante** al entrar ("¿Eres mayor de edad?"). "Sí" se recuerda en `localStorage` (`mw-age-ok`); "No" muestra un aviso y la web sigue bloqueada. Visitas posteriores: intro corta del logo (≤1,75 s, saltable con clic/Enter/Esc). Con `prefers-reduced-motion` no hay animación. |
-| Descuento | Sin cifra. `js/config.js → SHOW_DISCOUNT_PERCENT = false`. Si se activa y se rellena `DISCOUNT_PERCENT`, aparece en la nota del configurador. |
-| Configurador | "Volumen mensual" = al menos 8 stories, 2 vídeos o 3 posts. Si no se llega, se recomiendan **Servicios individuales** (se evalúa antes del Plan Inicio para que ese caso sea alcanzable). Casos comprobados: 22/4/6 → Inicio · 23/4/6 → WeAreClub · 32/6/8 → WeAreClub · 33/6/8 → A medida · web → Clubsy · web + 23 → Clubsy + extras · 0/0/0 → Individuales. |
-| Merch | 16 piezas: Físico (bandeja, grinder, mechero, camiseta, taza, llavero, pegatinas), Papelería (ticket, flyer, cartel, packaging, tarjeta de socio), Digital (portada, destacados, post y story de evento). |
-| Cuenta atrás | Story 7 cuenta hasta el próximo viernes a las 21:00 (hora local), siempre en el futuro. |
-| Calendario de stories | Usa el mes actual del visitante y reparte las stories de forma uniforme. |
-| Idioma | ES por defecto; EN si `navigator.language` no empieza por `es`. La elección se guarda en `localStorage` (`mw-lang`). |
-| Fuentes | Convertidas a WOFF2 y reducidas a latín + español (≈134 KB las cuatro). Licencias OFL copiadas en `fonts/`. |
+| Un solo archivo | Pedido por el encargo. Las fuentes van en base64 (~180 KB): `index.html` pesa ~360 KB, ~190 KB comprimido. |
+| Indexación | El encargo pide SEO, pero `CLAUDE.md` exige `noindex`. **Se mantiene `noindex`** y está todo el SEO preparado (title, description, keywords, Open Graph, JSON-LD `ProfessionalService`). Para indexar: quitar la meta `robots`, la línea `X-Robots-Tag` de `_headers` y el `Disallow` de `robots.txt`, y añadir `<link rel="canonical">` con la URL definitiva. |
+| Instagram | `CLAUDE.md` prohíbe enlaces externos: **@markeweed.es aparece como texto** con botón "Copiar usuario" y pasos para escribir por DM. Si se quiere enlace, cambiar el botón por `<a href="https://instagram.com/markeweed.es" rel="noopener">`. |
+| Formulario | **Netlify Forms** (envía al mismo origen, sin terceros en el navegador). Tras enviar, Netlify redirige a `/?enviado=1` y la web muestra el mensaje de éxito. Validación accesible en el cliente; honeypot antispam. Campos: nombre, negocio, email, teléfono (opcional), mensaje + casilla de privacidad (obligatoria, sin marcar) + casilla de comunicaciones comerciales (opcional, sin marcar). Campo oculto `idioma` para responder en el idioma de la persona. |
+| Privacidad | Se menciona a Netlify como encargado del tratamiento (alojamiento y formularios) con su transferencia internacional, porque los envíos se guardan en Netlify. Plazo de conservación propuesto: 12 meses desde el último contacto si no hay relación. |
+| Cookies | Solo almacenamiento técnico en `localStorage`: `mw-lang` (idioma) y `mw-consent` (elección, re-pregunta a los 12 meses). Banner con Aceptar / Rechazar / Configurar con **el mismo estilo exacto**. "Configurar" abre un panel con Técnicas (siempre activas) y Analíticas (no se usan). Si algún día se añade analítica, cargarla solo dentro de `applyConsent()` y añadirla a la tabla de la política. |
+| Páginas legales | Diálogos `<dialog>` accesibles (foco, Esc, clic fuera, devuelven el foco), abribles por enlace (`#aviso-legal`, `#privacidad`, `#cookies`). Sin JS se muestran como secciones al final. |
+| Idioma | ES por defecto **siempre** (la web va dirigida a Madrid y el SEO es en español); EN solo si se elige en el selector (se recuerda). Todo traducido, también los textos legales y los `aria-label`. |
+| Aviso +18 | Sin puerta bloqueante: es una web B2B. Se indica "Servicios para profesionales · +18" en el pie. |
+| Tipografía "bold condensada" | El kit de marca no tiene una condensada y `CLAUDE.md` no permite otras: titulares en **Rubik Mono One** en mayúsculas con tracking negativo. |
+| Contraste del naranja | `#CC5500` con texto blanco da 4,3:1: los botones naranjas usan texto grande y en negrita (≥ 19 px / 700) para cumplir AA. Texto pequeño sobre navy en blanco, `--teal-300` u `--orange-300`. |
+| Portfolio | Antes/después **ilustrados en SVG** con un club ficticio («Tu Club»): perfil, logo, web por invitación y merch. Comparador accesible (control deslizante, teclado). Los "antes" usan a propósito tipografías de sistema (Times, Arial, cursiva) para mostrar un diseño descuidado; es la única excepción a las fuentes de marca. |
+| Léxico | Sin "comercial" en el discurso (solo el término legal "comunicaciones comerciales" y "nombre comercial"), sin "captar socios", "más socios", "llena tu club" ni promesas de visibilidad, alcance o posicionamiento (solo aparecen como "lo que no hacemos"). No se usa "cannábico". |
+| Merch | Solo textil, tazas, bolsas, pegatinas, tarjetas de socio y packaging; sin bandejas, grinders ni mecheros. |
 
 ## Cómo editar
-- **Textos en español**: directamente en `index.html` (cada texto lleva `data-i18n="clave"`). El JS los recoge al cargar como diccionario ES.
-- **Textos en inglés**: `js/i18n.js → DICT.en`, misma clave. Los textos que genera el JS (configurador, modal, captions) están en `DICT.es` y `DICT.en`.
-- **Títulos con revelado línea a línea** usan `data-i18n-html` con `<span class="line"><span>…</span></span>`: mantener esa estructura en ambos idiomas.
-- **Planes** (cifras de contenido, nunca precios): `js/config.js → PLANS` (configurador) + tarjetas en `index.html` + textos `interest.plan.*`.
-- **Colores del merch**: `js/merch.js → SWATCHES`. Las piezas usan clases `mk-main`, `mk-acc`, `mk-ink`, `mk-soft`, `mk-paper`, `mk-text`.
-- **Nueva pieza de merch**: copia un `<li class="merch-item" data-cat="…">` y añade sus claves `merch.<pieza>.name/detail` en `DICT.en`.
-- **Duración de cada story**: `js/config.js → STORY_DURATION`.
+- **Textos ES**: en el HTML (cada texto lleva `data-i18n`, `data-i18n-html` o `data-i18n-attr`).
+- **Textos EN**: objeto `EN` del script, misma clave. Mensajes generados por JS: `ES_JS` y `EN` (`js.*`).
+- **Trabajos reales en el portfolio**: sustituir el SVG de `.ba-before` / `.ba-after` por `<img>` (en `img/`, con `alt`), solo con autorización escrita del cliente, y recortar o desenfocar cualquier producto visible.
 
-## Comprobado
-- 0 errores de consola; solo se cargan recursos del propio origen.
-- Sin precios/importes en ES ni EN (grep de €, euro, precio, price, %, /mes, /month, 1800, 299, 599, 230: solo falsos positivos de coordenadas SVG y posiciones CSS).
-- Sin enlaces externos, `mailto:` ni `tel:`.
-- Sin scroll horizontal a 360, 768 y 1440 px.
-- Teclado: puerta +18 con Enter, foco atrapado en modales/panel/visor/menú, Esc cierra y devuelve el foco, flechas en stories, visor y radiogroups.
-- `prefers-reduced-motion`: sin intro animada, sin parallax/cursor/tilt, stories en pausa hasta pulsar play.
-
-## Pendiente de revisar por el cliente
-- El texto del Marco legal es orientativo: conviene revisarlo con asesoría jurídica antes de enviar el portfolio.
+## Comprobado (Chromium, 360 / 768 / 1280 px)
+- 0 errores de consola con la CSP real aplicada; 0 peticiones a otros orígenes.
+- Sin scroll horizontal.
+- ES ⇄ EN completo (sin claves sin traducir).
+- Teclado: pestañas con flechas, comparador con flechas, menú móvil con Esc, diálogos con foco y Esc.
+- Formulario: errores por campo, foco al primer error, estado de éxito con `?enviado=1`.
+- Cookies: banner al entrar, elección guardada, panel de configuración, enlace "Configurar cookies" en el pie.
+- Sin JS: contenido, portfolio y textos legales visibles.
+- `prefers-reduced-motion`: sin animaciones.
+- Grep de reglas de oro: sin precios, sin `http`/`mailto:`/`tel:` en enlaces (solo el `xmlns` de los SVG y el `@context` del JSON-LD, que no hacen peticiones).
